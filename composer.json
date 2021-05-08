@@ -1,0 +1,41 @@
+{
+  "name": "ixnode/php-branch-diagram-builder",
+  "description": "PHP Branch Diagram Builder",
+  "license": "MIT",
+  "keywords": ["branch", "branching strategy", "branching diagram", "branch diagram"],
+  "authors": [
+    {
+      "name": "Björn Hempel",
+      "email": "bjoern@hempel.li",
+      "homepage": "https://www.hempel.li/"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ixnode\\PHPBranchDiagramBuilder\\": "src",
+      "Test\\Ixnode\\PHPBranchDiagramBuilder\\": "tests"
+    }
+  },
+  "require": {
+    "php":  "^7.4 || ^8.0",
+    "adhocore/cli": "^0.9.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "phpstan/phpstan": "^0.12.83"
+  },
+  "bin": [
+    "bin/builder"
+  ],
+  "scripts": {
+    "analyse": [
+      "phpstan analyse src --level max --no-progress",
+      "phpstan analyse tests --level max --no-progress"
+    ],
+    "tests": "phpunit tests",
+    "ci": [
+      "@analyse",
+      "@tests"
+    ]
+  }
+}
