@@ -34,6 +34,8 @@ class Branch
 
     protected ?string $title;
 
+    protected ?string $targetSystem;
+
     protected int $row;
 
     protected string $fillColor;
@@ -65,6 +67,9 @@ class Branch
         $this->fillColor = $colorFill;
         $this->strokeColor = $colorStroke;
         $this->textColor = $colorText;
+
+        $this->title = null;
+        $this->targetSystem = null;
     }
 
     /**
@@ -105,6 +110,26 @@ class Branch
     public function getTitle(): string
     {
         return $this->title ?? $this->name;
+    }
+
+    /**
+     * Sets the target system.
+     *
+     * @param string|null $targetSystem
+     */
+    public function setTargetSystem(?string $targetSystem): void
+    {
+        $this->targetSystem = $targetSystem;
+    }
+
+    /**
+     * Returns the target system.
+     *
+     * @return string|null
+     */
+    public function getTargetSystem(): ?string
+    {
+        return $this->targetSystem;
     }
 
     /**

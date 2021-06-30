@@ -54,7 +54,7 @@ class Builder
 
     protected int $height = 0;
 
-    const START_X = 150;
+    const START_X = 220;
 
     const START_Y = 150;
 
@@ -114,7 +114,7 @@ class Builder
 
     const REPOSITORY_BRANCH_FEATURE = 'feature';
 
-    const TEXT_PADDING = 50;
+    const TEXT_PADDING = 20;
 
     const TITLE_TEXT_SIZE = 40;
 
@@ -513,8 +513,9 @@ class Builder
         $textHeight = $metrics['textHeight'];
 
         /* Calculates the position of text. */
-        $x = self::START_X - $textWidth - self::TEXT_PADDING;
-        $y = self::START_Y + $branch->getRow() * self::ROW_WIDTH + round($textHeight / 3);
+        $x = self::START_X - self::TEXT_PADDING;
+        $direction = $branch->getTargetSystem() ? -1 : 1;
+        $y1 = self::START_Y + $branch->getRow() * self::ROW_WIDTH + $direction * round($textHeight / 3);
 
         /* Set some properties. */
         //$draw->setFont('Arial');
@@ -522,10 +523,20 @@ class Builder
         $draw->setFillColor(new ImagickPixel($branch->getTextColor()));
         $draw->setStrokeAntialias(true);
         $draw->setTextAntialias(true);
+        $draw->setTextAlignment(Imagick::ALIGN_RIGHT);
 
         /* Write text. */
-        $draw->annotation($x, $y, $branch->getName());
+        $draw->annotation($x, $y1, $branch->getName());
         $this->imagick->drawImage($draw);
+
+        /* Write text. */
+        $targetSystem = $branch->getTargetSystem();
+        if ($targetSystem !== null && $targetSystem) {
+            $y2 = self::START_Y + $branch->getRow() * self::ROW_WIDTH + round($textHeight / 3);
+
+            $draw->annotation($x, $y2 + 20, $targetSystem);
+            $this->imagick->drawImage($draw);
+        }
     }
 
     /**

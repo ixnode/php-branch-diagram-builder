@@ -90,7 +90,21 @@ class BuildCommand extends BaseCommand
         /* Add branches */
         $branches = array_key_exists('branches', $config) ? $config['branches'] : [];
         foreach ($branches as $branch) {
-            $branchStrategyBuilder->addBranch($branch['name'], new Branch($branch['color-light'], $branch['color-dark']));
+            /* Get configs */
+            $name = array_key_exists('name', $branch) ? $branch['name'] : null;
+            $colorFill = array_key_exists('color-light', $branch) ? $branch['color-light'] : Builder::CONNECTION_FILL_COLOR;
+            $colorStroke = array_key_exists('color-dark', $branch) ? $branch['color-dark'] : Builder::CONNECTION_STROKE_COLOR;
+
+            /* Build branch. */
+            $branchInstance = new Branch($colorFill, $colorStroke);
+
+            /* Add target system if available */
+            if (array_key_exists('system', $branch)) {
+                $branchInstance->setTargetSystem($branch['system']);
+            }
+
+            /* Add branch. */
+            $branchStrategyBuilder->addBranch($name, $branchInstance);
         }
 
         /* Add steps */

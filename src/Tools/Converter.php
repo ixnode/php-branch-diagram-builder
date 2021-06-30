@@ -124,7 +124,7 @@ class Converter
     public static function removeFileExtension(string $file): string
     {
         $ext = pathinfo($file, PATHINFO_EXTENSION);
-        return basename($file, sprintf('.%s', $ext));
+        return sprintf("%s/%s", dirname($file), basename($file, sprintf('.%s', $ext)));
     }
 
     /**
@@ -134,7 +134,7 @@ class Converter
      * @param string $extension
      * @return string
      */
-    public static function replaceFileExtension(string $file, string $extension)
+    public static function replaceFileExtension(string $file, string $extension): string
     {
         return sprintf('%s.%s', self::removeFileExtension($file), $extension);
     }
