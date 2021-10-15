@@ -1,0 +1,68 @@
+title: Trunk Based Development
+width: 1500
+branches:
+  - name: 'main'
+    system: 'Productive system'
+    color-light: '#0151ad'
+    color-dark: '#024796'
+  - name: 'development'
+    system: 'Development system'
+    color-light: '#01aaad'
+    color-dark: '#029496'
+  - name: ['feature', 1]
+    system: 'Local development'
+    color-light: '#70b964'
+    color-dark: '#46733f'
+  - name: ['feature', 2]
+    system: 'Local development'
+    color-light: '#f9a61b'
+    color-dark: '#c48416'
+  - name: ['feature', 3]
+    system: 'Local development'
+    color-light: '#ed1164'
+    color-dark: '#b30c4c'
+steps:
+  - type: 'init'
+    source: null
+    target: 'main'
+  - type: 'checkout'
+    source: 'main'
+    target: 'development'
+  - type: 'checkout'
+    source: 'development'
+    target: ['feature', 1]
+  - type: 'commit'
+    source: ['feature', 1]
+  - type: 'checkout'
+    source: 'development'
+    target: ['feature', 2]
+  - type: 'commit'
+    source: ['feature', 2]
+  - type: 'merge'
+    source: ['feature', 1]
+    target: 'development'
+  - type: 'checkout'
+    source: 'development'
+    target: 'main'
+  - type: 'merge'
+    source: 'development'
+    target: ['feature', 2]
+  - type: 'commit'
+    source: ['feature', 2]
+  - type: 'merge'
+    source: ['feature', 2]
+    target: 'development'
+  - type: 'merge'
+    source: 'development'
+    target: 'main'
+  - type: 'checkout'
+    source: 'development'
+    target: ['feature', 3]
+  - type: 'commit'
+    source: ['feature', 3]
+  - type: 'merge'
+    source: ['feature', 3]
+    target: 'development'
+  - type: 'merge'
+    source: 'development'
+    target: 'main'

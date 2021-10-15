@@ -33,7 +33,7 @@ class StepMissingSourceException extends BaseException
     const TEXT_STEP_MISSING_SOURCE = 'No source branch was given to current step type.';
 
     /**
-     * PHPVaultCorruptedDataException constructor.
+     * StepMissingSourceException constructor.
      *
      * @param int $code
      * @param Throwable|null $previous

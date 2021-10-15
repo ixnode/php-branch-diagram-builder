@@ -40,6 +40,7 @@ abstract class BaseException extends Exception
     const RETURN_CODE_STEP_MISSING_TARGET = 104;
     const RETURN_CODE_STEP_EQUAL_SOURCE_AND_TARGET = 105;
     const RETURN_CODE_STEP_NOT_EQUAL_SOURCE_AND_TARGET = 106;
+    const RETURN_CODE_FUNCTION_DOES_NOT_EXIST = 107;
 
     /**
      * Returns the return code of current exception.

@@ -24,7 +24,7 @@
  * SOFTWARE.
  */
 
-namespace Test\Ixnode\PhpBranchDiagramBuilder;
+namespace Ixnode\PHPBranchDiagramBuilder\Tests;
 
 use Exception;
 use Throwable;
@@ -43,6 +43,11 @@ final class StepTest extends TestCase
     /**
      * Test the given steps.
      *
+     * @test
+     * @testdox $number) Test StepTest class ($type: $source -> $target).
+     * @dataProvider dataProvider
+     *
+     * @param int $number
      * @phpstan-param ?class-string<Throwable> $exception
      * @param string|null $exception
      * @param string $type
@@ -52,9 +57,8 @@ final class StepTest extends TestCase
      * @return void
      * @throws Exception
      * @phpstan-template T of object
-     * @dataProvider dataProvider
      */
-    public function testStep(?string $exception, string $type, ?string $source, ?string $target, string $targetExpected = null): void
+    public function testStep(int $number, ?string $exception, string $type, ?string $source, ?string $target, string $targetExpected = null): void
     {
         /* Expected exception */
         if ($exception !== null) {
@@ -78,35 +82,37 @@ final class StepTest extends TestCase
     /**
      * Define a data provider.
      *
-     * @return null[][]|string[][]
+     * @return null[][]|string[][]|int[][]
      */
     public function dataProvider(): array
     {
+        $number = 0;
+
         return [
             /* Unknown step type */
-            [StepUnknownTypeException::class,             'unknown',                        null,                                Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, StepUnknownTypeException::class,             'unknown',                        null,                                Builder::REPOSITORY_BRANCH_MASTER],
 
             /* Step type init */
-            [StepUnnecessarySourceException::class,       Builder::REPOSITORY_NAME_INIT,    Builder::REPOSITORY_BRANCH_MASTER,   Builder::REPOSITORY_BRANCH_MASTER],
-            [null,                                        Builder::REPOSITORY_NAME_INIT,    null,                                Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, StepUnnecessarySourceException::class,       Builder::REPOSITORY_NAME_INIT,    Builder::REPOSITORY_BRANCH_MASTER,   Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, null,                                        Builder::REPOSITORY_NAME_INIT,    null,                                Builder::REPOSITORY_BRANCH_MASTER],
 
             /* Step type checkout */
-            [StepMissingSourceException::class,           Builder::REPOSITORY_NAME_CHECKOUT, null,                               Builder::REPOSITORY_BRANCH_MASTER],
-            [StepMissingTargetException::class,           Builder::REPOSITORY_NAME_CHECKOUT, Builder::REPOSITORY_BRANCH_MASTER,  null],
-            [StepEqualSourceAndTargetException::class,    Builder::REPOSITORY_NAME_CHECKOUT, Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_MASTER],
-            [null,                                        Builder::REPOSITORY_NAME_CHECKOUT, Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_DEVELOP],
+            [++$number, StepMissingSourceException::class,           Builder::REPOSITORY_NAME_CHECKOUT, null,                               Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, StepMissingTargetException::class,           Builder::REPOSITORY_NAME_CHECKOUT, Builder::REPOSITORY_BRANCH_MASTER,  null],
+            [++$number, StepEqualSourceAndTargetException::class,    Builder::REPOSITORY_NAME_CHECKOUT, Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, null,                                        Builder::REPOSITORY_NAME_CHECKOUT, Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_DEVELOP],
 
             /* Step type commit */
-            [StepMissingSourceException::class,           Builder::REPOSITORY_NAME_COMMIT,   null,                               Builder::REPOSITORY_BRANCH_MASTER],
-            [null,                                        Builder::REPOSITORY_NAME_COMMIT,   Builder::REPOSITORY_BRANCH_MASTER,  null,                               Builder::REPOSITORY_BRANCH_MASTER],
-            [null,                                        Builder::REPOSITORY_NAME_COMMIT,   Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_MASTER],
-            [StepNotEqualSourceAndTargetException::class, Builder::REPOSITORY_NAME_COMMIT,   Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_DEVELOP],
+            [++$number, StepMissingSourceException::class,           Builder::REPOSITORY_NAME_COMMIT,   null,                               Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, null,                                        Builder::REPOSITORY_NAME_COMMIT,   Builder::REPOSITORY_BRANCH_MASTER,  null,                               Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, null,                                        Builder::REPOSITORY_NAME_COMMIT,   Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, StepNotEqualSourceAndTargetException::class, Builder::REPOSITORY_NAME_COMMIT,   Builder::REPOSITORY_BRANCH_MASTER,  Builder::REPOSITORY_BRANCH_DEVELOP],
 
             /* Step type merge */
-            [StepMissingSourceException::class,           Builder::REPOSITORY_NAME_MERGE,    null,                               Builder::REPOSITORY_BRANCH_MASTER],
-            [StepMissingTargetException::class,           Builder::REPOSITORY_NAME_MERGE,    Builder::REPOSITORY_BRANCH_DEVELOP, null],
-            [StepEqualSourceAndTargetException::class,    Builder::REPOSITORY_NAME_MERGE,    Builder::REPOSITORY_BRANCH_DEVELOP, Builder::REPOSITORY_BRANCH_DEVELOP],
-            [null,                                        Builder::REPOSITORY_NAME_MERGE,    Builder::REPOSITORY_BRANCH_DEVELOP, Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, StepMissingSourceException::class,           Builder::REPOSITORY_NAME_MERGE,    null,                               Builder::REPOSITORY_BRANCH_MASTER],
+            [++$number, StepMissingTargetException::class,           Builder::REPOSITORY_NAME_MERGE,    Builder::REPOSITORY_BRANCH_DEVELOP, null],
+            [++$number, StepEqualSourceAndTargetException::class,    Builder::REPOSITORY_NAME_MERGE,    Builder::REPOSITORY_BRANCH_DEVELOP, Builder::REPOSITORY_BRANCH_DEVELOP],
+            [++$number, null,                                        Builder::REPOSITORY_NAME_MERGE,    Builder::REPOSITORY_BRANCH_DEVELOP, Builder::REPOSITORY_BRANCH_MASTER],
         ];
     }
 }

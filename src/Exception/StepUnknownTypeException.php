@@ -33,7 +33,7 @@ class StepUnknownTypeException extends BaseException
     const TEXT_STEP_UNKNOWN_TYPE = 'The given step type is unknown.';
 
     /**
-     * PHPVaultCorruptedDataException constructor.
+     * StepUnknownTypeException constructor.
      *
      * @param int $code
      * @param Throwable|null $previous

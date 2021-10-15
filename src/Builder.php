@@ -54,6 +54,8 @@ class Builder
 
     protected int $height = 0;
 
+    const WIDTH = 2500;
+
     const START_X = 220;
 
     const START_Y = 150;
@@ -133,11 +135,12 @@ class Builder
     /**
      * Builder constructor.
      */
-    public function __construct(string $title)
+    public function __construct(string $title, int $width = self::WIDTH)
     {
         $this->branchContainer = new BranchContainer();
         $this->stepContainer = new StepContainer();
         $this->title = $title;
+        $this->width = $width;
     }
 
     /**
@@ -263,7 +266,7 @@ class Builder
      */
     public function getWidth(): int
     {
-        return 2500;
+        return $this->width > 0 ? $this->width : self::WIDTH;
     }
 
     /**

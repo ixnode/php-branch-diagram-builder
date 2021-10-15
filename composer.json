@@ -13,7 +13,7 @@
   "autoload": {
     "psr-4": {
       "Ixnode\\PHPBranchDiagramBuilder\\": "src",
-      "Test\\Ixnode\\PHPBranchDiagramBuilder\\": "tests"
+      "Ixnode\\PHPBranchDiagramBuilder\\Tests\\": "tests"
     }
   },
   "require": {
@@ -25,17 +25,15 @@
     "phpstan/phpstan": "^0.12.83"
   },
   "bin": [
-    "bin/builder"
+    "bin/pbdb-builder"
   ],
   "scripts": {
-    "analyse": [
-      "phpstan analyse src --level max --no-progress",
-      "phpstan analyse tests --level max --no-progress"
+    "phpunit-unit": "phpunit tests --testdox",
+    "sca": "phpstan analyse --level 8 --memory-limit 256M src tests",
+    "test": [
+      "@phpunit-unit",
+      "@sca"
     ],
-    "tests": "phpunit tests",
-    "ci": [
-      "@analyse",
-      "@tests"
-    ]
+    "php-version": "php --version"
   }
 }

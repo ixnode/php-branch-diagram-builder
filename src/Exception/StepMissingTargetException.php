@@ -33,7 +33,7 @@ class StepMissingTargetException extends BaseException
     const TEXT_STEP_MISSING_TARGET = 'No target branch was given to current step type.';
 
     /**
-     * PHPVaultCorruptedDataException constructor.
+     * StepMissingTargetException constructor.
      *
      * @param int $code
      * @param Throwable|null $previous

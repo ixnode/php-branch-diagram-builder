@@ -28,19 +28,20 @@ namespace Ixnode\PHPBranchDiagramBuilder\Exception;
 
 use Throwable;
 
-class StepNotEqualSourceAndTargetException extends BaseException
+class FunctionDoesNotExistException extends BaseException
 {
-    const TEXT_STEP_NOT_EQUAL_SOURCE_AND_TARGET = 'Source and target branch must be equal with this type of step.';
+    const TEXT_FUNCTION_DOES_NOT_EXIST = 'Function does not exist → %s';
 
     /**
-     * StepNotEqualSourceAndTargetException constructor.
+     * FunctionDoesNotExistException constructor.
      *
+     * @param string $functionName
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($code = 0, Throwable $previous = null)
+    public function __construct(string $functionName, int $code = 0, Throwable $previous = null)
     {
-        parent::__construct(self::TEXT_STEP_NOT_EQUAL_SOURCE_AND_TARGET, $code, $previous);
+        parent::__construct(sprintf(self::TEXT_FUNCTION_DOES_NOT_EXIST, $functionName), $code, $previous);
     }
 
     /**
@@ -50,6 +51,6 @@ class StepNotEqualSourceAndTargetException extends BaseException
      */
     public function getReturnCode(): int
     {
-        return self::RETURN_CODE_STEP_NOT_EQUAL_SOURCE_AND_TARGET;
+        return self::RETURN_CODE_FUNCTION_DOES_NOT_EXIST;
     }
 }

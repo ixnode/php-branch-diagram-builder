@@ -57,8 +57,8 @@ class Cli
     {
         // @codeCoverageIgnoreStart
         $this->onExit = $onExit ?? function ($exitCode = 0) {
-                exit($exitCode);
-            };
+            exit($exitCode);
+        };
         // @codeCoverageIgnoreEnd
 
         if ($interactor !== null) {

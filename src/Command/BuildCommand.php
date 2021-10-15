@@ -30,6 +30,7 @@ use Ahc\Cli\Application as App;
 use Exception;
 use Ixnode\PHPBranchDiagramBuilder\Builder;
 use Ixnode\PHPBranchDiagramBuilder\Branch;
+use Ixnode\PHPBranchDiagramBuilder\Exception\FunctionDoesNotExistException;
 use Ixnode\PHPBranchDiagramBuilder\Step;
 use Ixnode\PHPBranchDiagramBuilder\Tools\Converter;
 
@@ -40,6 +41,8 @@ class BuildCommand extends BaseCommand
     const ALIAS = 'b';
 
     const DESCRIPTION = 'Builds the branching diagram.';
+
+    const FUNCTION_NAME_YAML_PARSE_FILE = 'yaml_parse_file';
 
     /**
      * GenerateKeysCommand constructor.
@@ -61,6 +64,18 @@ class BuildCommand extends BaseCommand
     }
 
     /**
+     * System pre-check.
+     *
+     * @throws FunctionDoesNotExistException
+     */
+    protected function preCheck(): void
+    {
+        if (!function_exists(self::FUNCTION_NAME_YAML_PARSE_FILE)) {
+            throw new FunctionDoesNotExistException(self::FUNCTION_NAME_YAML_PARSE_FILE);
+        }
+    }
+
+    /**
      * Bootstrap show information function.
      *
      * @return void
@@ -68,6 +83,9 @@ class BuildCommand extends BaseCommand
      */
     public function handle(): void
     {
+        /* Pre-check */
+        $this->preCheck();
+
         /* Gets the branching diagram source yaml file to convert. */
         $branchingDiagramSourceFile = $this->getArgument('file');
 
@@ -85,7 +103,8 @@ class BuildCommand extends BaseCommand
 
         /* Initiate builder */
         $title = array_key_exists('title', $config) ? $config['title'] : Builder::NAME;
-        $branchStrategyBuilder = new Builder($title);
+        $width = array_key_exists('width', $config) ? $config['width'] : Builder::WIDTH;
+        $branchStrategyBuilder = new Builder($title, $width);
 
         /* Add branches */
         $branches = array_key_exists('branches', $config) ? $config['branches'] : [];

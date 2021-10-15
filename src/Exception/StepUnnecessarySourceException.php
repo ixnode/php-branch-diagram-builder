@@ -33,7 +33,7 @@ class StepUnnecessarySourceException extends BaseException
     const TEXT_STEP_UNNECESSARY_SOURCE = 'The given source branch within type init is not needed.';
 
     /**
-     * PHPVaultCorruptedDataException constructor.
+     * StepUnnecessarySourceException constructor.
      *
      * @param int $code
      * @param Throwable|null $previous

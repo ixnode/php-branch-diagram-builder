@@ -41,4 +41,8 @@ use Ixnode\PHPBranchDiagramBuilder\Cli;
 
 /* Start cli parser */
 $cli = new Cli();
-$cli->handle();
+try {
+    $cli->handle();
+} catch (Exception $e) {
+    print sprintf('Unable to build diagram: %s', $e->getMessage());
+}

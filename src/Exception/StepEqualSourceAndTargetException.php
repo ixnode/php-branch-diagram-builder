@@ -33,7 +33,7 @@ class StepEqualSourceAndTargetException extends BaseException
     const TEXT_STEP_EQUAL_SOURCE_AND_TARGET = 'Equal source and target is not allowed with this type of step.';
 
     /**
-     * PHPVaultCorruptedDataException constructor.
+     * StepEqualSourceAndTargetException constructor.
      *
      * @param int $code
      * @param Throwable|null $previous
