@@ -38,7 +38,7 @@ class Builder
 {
     const NAME = 'PHPBranchDiagramBuilder';
 
-    const VERSION = 'v1.0.0';
+    const VERSION = 'v1.0.1';
 
     const PNG_EXTENSION = 'png';
 
