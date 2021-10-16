@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,22 +22,46 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category BranchContainer
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
 
 use Exception;
 
+/**
+ * Class BranchContainer
+ *
+ * @category BranchContainer
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class BranchContainer
 {
-    /** @var Branch[] $branches */
+    /**
+     * $branches will save all branches.
+     *
+     * @var Branch[] $branches 
+     */
     protected array $branches = [];
 
     /**
      * Returns the branch name from mixed parameter.
      *
-     * @param mixed $name
-     * @return string
+     * @param mixed $name The name of this build.
+     *
+     * @return string Returns the name of the build.
      * @throws Exception
      */
     public function buildName($name): string
@@ -56,8 +80,9 @@ class BranchContainer
     /**
      * Adds the given new branch by name.
      *
-     * @param mixed $name
-     * @param Branch $branch
+     * @param mixed  $name   The given name.
+     * @param Branch $branch The given branch.
+     *
      * @return void
      * @throws Exception
      */
@@ -78,7 +103,8 @@ class BranchContainer
     /**
      * Returns the branch given by name.
      *
-     * @param mixed $name
+     * @param mixed $name The name of the wanted branch.
+     *
      * @return Branch
      * @throws Exception
      */

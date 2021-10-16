@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category BaseCommand
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Command;
@@ -44,7 +53,12 @@ use Throwable;
 /**
  * Class BaseCommand
  *
- * @package Ixnode\PHPBranchDiagramBuilder\Command
+ * @category BaseCommand
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
  */
 abstract class BaseCommand extends Command
 {
@@ -60,23 +74,34 @@ abstract class BaseCommand extends Command
 
     /**
      * Abstract function handle to handle all the command stuff.
+     *
+     * @return void
      */
     abstract public function handle(): void;
 
     /**
      * BaseCommand constructor.
      *
-     * @param string $name
-     * @param string $desc
-     * @param bool $allowUnknown
-     * @param App|null $app
+     * @param string   $name         The name of the base command.
+     * @param string   $desc         The description of the base command.
+     * @param bool     $allowUnknown The bool value of allow unknown.
+     * @param App|null $app          The app.
+     *
      * @throws Exception
      */
-    public function __construct(string $name, string $desc = '', bool $allowUnknown = false, App $app = null)
-    {
+    public function __construct(
+        string $name,
+        string $desc = '',
+        bool $allowUnknown = false,
+        App $app = null
+    ) {
         parent::__construct($name, $desc, $allowUnknown, $app);
 
-        /** @var Interactor|null $io Gets the Interactor  */
+        /**
+         * Gets the Interactor
+         *
+         * @var Interactor|null $io
+         */
         $io = $app instanceof App ? $app->io() : null;
 
         /* Initiate Writer */
@@ -89,9 +114,11 @@ abstract class BaseCommand extends Command
         $this->root = $this->getComposerJsonRootPath();
 
         /* Add debug option */
-        $this->option('-D --debug', 'Set application in debug mode.', function ($value) {
-            return TypeCheck::isBoolean($value);
-        }, false);
+        $this->option(
+            '-D --debug', 'Set application in debug mode.', function ($value) {
+                return TypeCheck::isBoolean($value);
+            }, false
+        );
     }
 
     /**
@@ -120,7 +147,8 @@ abstract class BaseCommand extends Command
     /**
      * Prints a simple exception message.
      *
-     * @param Throwable $exception
+     * @param Throwable $exception The exception.
+     *
      * @return void
      */
     public function printSimpleException(Throwable $exception): void
@@ -137,7 +165,8 @@ abstract class BaseCommand extends Command
     /**
      * Print stack trace and error msg of an exception.
      *
-     * @param Throwable $exception
+     * @param Throwable $exception The exception.
+     *
      * @return void
      */
     public function printTrace(Throwable $exception): void
@@ -149,14 +178,18 @@ abstract class BaseCommand extends Command
     /**
      * Returns an option from command line.
      *
-     * @param string $option
-     * @param string|bool $default
-     * @param bool $replaceWithDefaultIfTrue
+     * @param string      $option                   The option.
+     * @param string|bool $default                  The default.
+     * @param bool        $replaceWithDefaultIfTrue The bool value of
+     *                                              replaceWithDefaultIfTrue.
+     *
      * @return mixed
      * @throws Exception
      */
-    protected function getOption(string $option, $default = null, bool $replaceWithDefaultIfTrue = false)
-    {
+    protected function getOption(
+        string $option, $default = null,
+        bool $replaceWithDefaultIfTrue = false
+    ) {
         $option = $this->convertToCamelCase($option);
 
         $return = $this->registered($option) ? $this->$option : $default;
@@ -171,8 +204,9 @@ abstract class BaseCommand extends Command
     /**
      * Returns an argument from command line.
      *
-     * @param string $argument
-     * @param null $default
+     * @param string $argument The argument.
+     * @param null   $default  The default.
+     *
      * @return mixed
      * @throws Exception
      */
@@ -182,28 +216,33 @@ abstract class BaseCommand extends Command
 
         $argument = $this->convertToCamelCase($argument);
 
-        return array_key_exists($argument, $arguments) ? $arguments[$argument] : $default;
+        return array_key_exists($argument, $arguments) ?
+            $arguments[$argument] :
+            $default;
     }
 
     /**
      * Converts given string into CamelCase.
      *
-     * @param string $value
+     * @param string $value The value.
+     *
      * @return string
      * @throws NullException
      */
     protected function convertToCamelCase(string $value): string
     {
         /* Replace capitals to "-capital". */
-        $value = Converter::preg_replace_string('~([A-Z])~', '-$1', $value);
+        $value = Converter::pregReplaceString('~([A-Z])~', '-$1', $value);
 
         /* Split string by - */
         $array = explode('-', $value);
 
         /* Convert each string part into "strtolower" and "ucfirst". */
-        $array = array_map(function ($element) {
-            return ucfirst(strtolower($element));
-        }, $array);
+        $array = array_map(
+            function ($element) {
+                return ucfirst(strtolower($element));
+            }, $array
+        );
 
         /* Rebuild string. */
         return lcfirst(implode('', $array));

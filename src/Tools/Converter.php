@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,31 +22,63 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Converter
+ * @package  Ixnode\PHPBranchDiagramBuilder\Tools
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Tools;
 
 use Ixnode\PHPBranchDiagramBuilder\Exception\NullException;
 
+/**
+ * Class Converter
+ *
+ * @category Converter
+ * @package  Ixnode\PHPBranchDiagramBuilder\Tools
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Converter
 {
     /**
      * Replacement for the internal php preg_replace function.
      *
-     * @param string $pattern
-     * @param string $replacement
-     * @param string $subject
-     * @param int $limit [optional]
-     * @param int $count [optional]
+     * @param string $pattern     The pattern.
+     * @param string $replacement The replacement.
+     * @param string $subject     The subject.
+     * @param int    $limit       [optional]
+     * @param int    $count       [optional]
+     *
      * @return string
      * @throws NullException
      */
-    public static function preg_replace_string(string $pattern, string $replacement, string $subject, int $limit = -1, int &$count = 0): string
-    {
+    public static function pregReplaceString(
+        string $pattern,
+        string $replacement,
+        string $subject,
+        int $limit = -1,
+        int &$count = 0
+    ): string {
         $value = preg_replace($pattern, $replacement, $subject, $limit, $count);
 
         if ($value === null) {
-            throw new NullException(sprintf(NullException::TEXT_NULL_EXCEPTION, NullException::FUNCTION_PREG_REPLACE, __FILE__, __LINE__));
+            throw new NullException(
+                sprintf(
+                    NullException::TEXT_NULL_EXCEPTION,
+                    NullException::FUNCTION_PREG_REPLACE,
+                    __FILE__,
+                    __LINE__
+                )
+            );
         }
 
         return $value;
@@ -55,20 +87,33 @@ class Converter
     /**
      * Replacement for the internal php preg_replace function.
      *
-     * @param string[] $pattern
-     * @param string[] $replacement
-     * @param string[] $subject
-     * @param int $limit [optional]
-     * @param int $count [optional]
+     * @param string[] $pattern     The pattern.
+     * @param string[] $replacement The replacement.
+     * @param string[] $subject     the subject.
+     * @param int      $limit       [optional]
+     * @param int      $count       [optional]
+     *
      * @return string[]
      * @throws NullException
      */
-    public static function preg_replace_array(array $pattern, array $replacement, array $subject, int $limit = -1, int &$count = 0): array
-    {
+    public static function pregReplaceArray(
+        array $pattern,
+        array $replacement,
+        array $subject,
+        int $limit = -1,
+        int &$count = 0
+    ): array {
         $array = preg_replace($pattern, $replacement, $subject, $limit, $count);
 
         if ($array === null) {
-            throw new NullException(sprintf(NullException::TEXT_NULL_EXCEPTION, NullException::FUNCTION_PREG_REPLACE, __FILE__, __LINE__));
+            throw new NullException(
+                sprintf(
+                    NullException::TEXT_NULL_EXCEPTION,
+                    NullException::FUNCTION_PREG_REPLACE,
+                    __FILE__,
+                    __LINE__
+                )
+            );
         }
 
         return $array;
@@ -77,27 +122,28 @@ class Converter
     /**
      * Transform a given key to an UNDER_SCORE key.
      *
-     * @param string $keyName
+     * @param string $keyName The key name.
+     *
      * @return string
      * @throws NullException
      */
     public static function getUnderscoredKey(string $keyName): string
     {
         /* Replace capital letters with -capital  */
-        $keyName = self::preg_replace_string('~([A-Z][a-z])~', '_$1', $keyName);
+        $keyName = self::pregReplaceString('~([A-Z][a-z])~', '_$1', $keyName);
 
         /* Replace number letters with -number  */
-        $keyName = self::preg_replace_string('~([A-Za-z])([0-9])~', '$1_$2', $keyName);
-        $keyName = self::preg_replace_string('~([0-9])([A-Za-z])~', '$1_$2', $keyName);
+        $keyName = self::pregReplaceString('~([A-Za-z])([0-9])~', '$1_$2', $keyName);
+        $keyName = self::pregReplaceString('~([0-9])([A-Za-z])~', '$1_$2', $keyName);
 
         /* Replace all - to _ */
         $keyName = str_replace('-', '_', $keyName);
 
         /* Replace doubled __ */
-        $keyName = self::preg_replace_string('~_+~', '_', $keyName);
+        $keyName = self::pregReplaceString('~_+~', '_', $keyName);
 
         /* Remove _ at the beginning */
-        $keyName = self::preg_replace_string('~^_~', '', $keyName);
+        $keyName = self::pregReplaceString('~^_~', '', $keyName);
 
         /* Transform all letters to upper */
         return strtoupper($keyName);
@@ -106,36 +152,45 @@ class Converter
     /**
      * Removes quotes from string.
      *
-     * @param string $string $string
+     * @param string $string The string.
+     *
      * @return string
      * @throws NullException
      */
     public static function removeQuotes(string $string): string
     {
-        return self::preg_replace_string('~^[\'"]?(.*?)[\'"]?$~', '$1', $string);
+        return self::pregReplaceString('~^[\'"]?(.*?)[\'"]?$~', '$1', $string);
     }
 
     /**
      * Removes the file extension from given file.
      *
-     * @param string $file
+     * @param string $file The file.
+     *
      * @return string
      */
     public static function removeFileExtension(string $file): string
     {
         $ext = pathinfo($file, PATHINFO_EXTENSION);
-        return sprintf("%s/%s", dirname($file), basename($file, sprintf('.%s', $ext)));
+        return sprintf(
+            "%s/%s",
+            dirname($file),
+            basename($file, sprintf('.%s', $ext))
+        );
     }
 
     /**
      * Replaces the file extension from given file with the given extension.
      *
-     * @param string $file
-     * @param string $extension
+     * @param string $file      The file.
+     * @param string $extension The extension.
+     *
      * @return string
      */
-    public static function replaceFileExtension(string $file, string $extension): string
-    {
+    public static function replaceFileExtension(
+        string $file,
+        string $extension
+    ): string {
         return sprintf('%s.%s', self::removeFileExtension($file), $extension);
     }
 }

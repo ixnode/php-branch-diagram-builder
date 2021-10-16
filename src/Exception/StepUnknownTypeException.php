@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,12 +22,31 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category StepUnknownTypeException
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Exception;
 
 use Throwable;
 
+/**
+ * Class StepUnknownTypeException
+ *
+ * @category StepUnknownTypeException
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class StepUnknownTypeException extends BaseException
 {
     const TEXT_STEP_UNKNOWN_TYPE = 'The given step type is unknown.';
@@ -35,8 +54,8 @@ class StepUnknownTypeException extends BaseException
     /**
      * StepUnknownTypeException constructor.
      *
-     * @param int $code
-     * @param Throwable|null $previous
+     * @param int            $code     The code of this Exception.
+     * @param Throwable|null $previous The Throwable for the previous exception.
      */
     public function __construct($code = 0, Throwable $previous = null)
     {

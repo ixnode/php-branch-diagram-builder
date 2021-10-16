@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,21 +22,42 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category StepMissingSourceException
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Exception;
 
 use Throwable;
 
+/**
+ * Class StepMissingSourceException
+ *
+ * @category StepMissingSourceException
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class StepMissingSourceException extends BaseException
 {
-    const TEXT_STEP_MISSING_SOURCE = 'No source branch was given to current step type.';
+    const TEXT_STEP_MISSING_SOURCE = <<<TEXT
+No source branch was given to current step type.
+TEXT;
 
     /**
      * StepMissingSourceException constructor.
      *
-     * @param int $code
-     * @param Throwable|null $previous
+     * @param int            $code     The code of this Exception.
+     * @param Throwable|null $previous The Throwable for the previous exception.
      */
     public function __construct($code = 0, Throwable $previous = null)
     {

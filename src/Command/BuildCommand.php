@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category BuildCommand
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Command;
@@ -34,6 +43,16 @@ use Ixnode\PHPBranchDiagramBuilder\Exception\FunctionDoesNotExistException;
 use Ixnode\PHPBranchDiagramBuilder\Step;
 use Ixnode\PHPBranchDiagramBuilder\Tools\Converter;
 
+/**
+ * Class BuildCommand
+ *
+ * @category BuildCommand
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class BuildCommand extends BaseCommand
 {
     const COMMAND = 'build';
@@ -47,8 +66,9 @@ class BuildCommand extends BaseCommand
     /**
      * GenerateKeysCommand constructor.
      *
-     * @param bool $allowUnknown
-     * @param App|null $app
+     * @param bool     $allowUnknown The bool value of allow unknown.
+     * @param App|null $app          The app.
+     *
      * @throws Exception
      */
     public function __construct(bool $allowUnknown = false, App $app = null)
@@ -56,8 +76,16 @@ class BuildCommand extends BaseCommand
         parent::__construct(self::COMMAND, self::DESCRIPTION, $allowUnknown, $app);
 
         $this
-            ->argument('<file>', 'The branching diagram source yaml file to convert.')
-            ->option('-o --output-file', 'Persists the branching diagram to output file.', null, false)
+            ->argument(
+                '<file>',
+                'The branching diagram source yaml file to convert.'
+            )
+            ->option(
+                '-o --output-file',
+                'Persists the branching diagram to output file.',
+                null,
+                false
+            )
             ->usage(
                 '<bold>  $0 info</end> ## Shows information.<eol/>'
             );
@@ -66,12 +94,16 @@ class BuildCommand extends BaseCommand
     /**
      * System pre-check.
      *
+     * @return void
+     *
      * @throws FunctionDoesNotExistException
      */
     protected function preCheck(): void
     {
         if (!function_exists(self::FUNCTION_NAME_YAML_PARSE_FILE)) {
-            throw new FunctionDoesNotExistException(self::FUNCTION_NAME_YAML_PARSE_FILE);
+            throw new FunctionDoesNotExistException(
+                self::FUNCTION_NAME_YAML_PARSE_FILE
+            );
         }
     }
 
@@ -99,11 +131,19 @@ class BuildCommand extends BaseCommand
         $config = yaml_parse_file($branchingDiagramSourceFile);
 
         /* Gets the output file. */
-        $outputFile = $this->getOption('output-file') ?: Converter::replaceFileExtension($branchingDiagramSourceFile, Builder::PNG_EXTENSION);
+        $outputFile = $this->getOption('output-file') ?:
+            Converter::replaceFileExtension(
+                $branchingDiagramSourceFile,
+                Builder::PNG_EXTENSION
+            );
 
         /* Initiate builder */
-        $title = array_key_exists('title', $config) ? $config['title'] : Builder::NAME;
-        $width = array_key_exists('width', $config) ? $config['width'] : Builder::WIDTH;
+        $title = array_key_exists('title', $config) ?
+            $config['title'] :
+            Builder::NAME;
+        $width = array_key_exists('width', $config) ?
+            $config['width'] :
+            Builder::WIDTH;
         $branchStrategyBuilder = new Builder($title, $width);
 
         /* Add branches */
@@ -111,8 +151,12 @@ class BuildCommand extends BaseCommand
         foreach ($branches as $branch) {
             /* Get configs */
             $name = array_key_exists('name', $branch) ? $branch['name'] : null;
-            $colorFill = array_key_exists('color-light', $branch) ? $branch['color-light'] : Builder::CONNECTION_FILL_COLOR;
-            $colorStroke = array_key_exists('color-dark', $branch) ? $branch['color-dark'] : Builder::CONNECTION_STROKE_COLOR;
+            $colorFill = array_key_exists('color-light', $branch) ?
+                $branch['color-light'] :
+                Builder::CONNECTION_FILL_COLOR;
+            $colorStroke = array_key_exists('color-dark', $branch) ?
+                $branch['color-dark'] :
+                Builder::CONNECTION_STROKE_COLOR;
 
             /* Build branch. */
             $branchInstance = new Branch($colorFill, $colorStroke);

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Step
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
@@ -34,6 +43,16 @@ use Ixnode\PHPBranchDiagramBuilder\Exception\StepNotEqualSourceAndTargetExceptio
 use Ixnode\PHPBranchDiagramBuilder\Exception\StepUnknownTypeException;
 use Ixnode\PHPBranchDiagramBuilder\Exception\StepUnnecessarySourceException;
 
+/**
+ * Class Step
+ *
+ * @category Step
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Step
 {
     protected string $type;
@@ -47,38 +66,39 @@ class Step
     /**
      * Step constructor.
      *
-     * @param string $type
-     * @param ?mixed $source
-     * @param ?mixed $target
+     * @param string $type   The type of this step.
+     * @param ?mixed $source The source of this step.
+     * @param ?mixed $target The target of this step.
+     *
      * @throws Exception
      */
     public function __construct(string $type, $source = null, $target = null)
     {
         /* Get and convert source and target */
         switch ($type) {
-            case Builder::REPOSITORY_NAME_COMMIT:
-                $source = $this->buildName($source);
-                $target = $this->buildName($target ?? $source);
-                break;
+        case Builder::REPOSITORY_NAME_COMMIT:
+            $source = $this->buildName($source);
+            $target = $this->buildName($target ?? $source);
+            break;
 
-            case Builder::REPOSITORY_NAME_INIT:
-            case Builder::REPOSITORY_NAME_CHECKOUT:
-            case Builder::REPOSITORY_NAME_MERGE:
-                $source = $this->buildName($source);
-                $target = $this->buildName($target);
-                break;
+        case Builder::REPOSITORY_NAME_INIT:
+        case Builder::REPOSITORY_NAME_CHECKOUT:
+        case Builder::REPOSITORY_NAME_MERGE:
+            $source = $this->buildName($source);
+            $target = $this->buildName($target);
+            break;
 
-            default:
-                throw new StepUnknownTypeException();
+        default:
+            throw new StepUnknownTypeException();
         }
 
         /* Check source */
         switch (true) {
-            case $type === Builder::REPOSITORY_NAME_INIT && $source !== null:
-                throw new StepUnnecessarySourceException();
+        case $type === Builder::REPOSITORY_NAME_INIT && $source !== null:
+            throw new StepUnnecessarySourceException();
 
-            case $type !== Builder::REPOSITORY_NAME_INIT && $source === null:
-                throw new StepMissingSourceException();
+        case $type !== Builder::REPOSITORY_NAME_INIT && $source === null:
+            throw new StepMissingSourceException();
         }
 
         /* Check target */
@@ -88,11 +108,11 @@ class Step
 
         /* Check equal branches */
         switch (true) {
-            case $type !== Builder::REPOSITORY_NAME_COMMIT && $source === $target:
-                throw new StepEqualSourceAndTargetException();
+        case $type !== Builder::REPOSITORY_NAME_COMMIT && $source === $target:
+            throw new StepEqualSourceAndTargetException();
 
-            case $type === Builder::REPOSITORY_NAME_COMMIT && $source !== $target:
-                throw new StepNotEqualSourceAndTargetException();
+        case $type === Builder::REPOSITORY_NAME_COMMIT && $source !== $target:
+            throw new StepNotEqualSourceAndTargetException();
         }
 
         /* Add values */
@@ -104,7 +124,8 @@ class Step
     /**
      * Returns the branch name from mixed parameter.
      *
-     * @param mixed $name
+     * @param mixed $name The build name.
+     *
      * @return ?string
      * @throws Exception
      */
@@ -158,7 +179,8 @@ class Step
     /**
      * Sets the step position.
      *
-     * @param int $stepPosition
+     * @param int $stepPosition The step position.
+     *
      * @return void
      */
     public function setStepPosition(int $stepPosition): void

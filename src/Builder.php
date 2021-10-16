@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Builder
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
@@ -34,6 +43,16 @@ use ImagickException;
 use ImagickPixel;
 use ImagickPixelException;
 
+/**
+ * Class Builder
+ *
+ * @category Builder
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Builder
 {
     const NAME = 'PHPBranchDiagramBuilder';
@@ -134,6 +153,9 @@ class Builder
 
     /**
      * Builder constructor.
+     *
+     * @param string $title The title.
+     * @param int    $width The Width.
      */
     public function __construct(string $title, int $width = self::WIDTH)
     {
@@ -146,8 +168,9 @@ class Builder
     /**
      * Adds the given branch by name.
      *
-     * @param mixed $name
-     * @param Branch $branch
+     * @param string $name   The name.
+     * @param Branch $branch The branch.
+     *
      * @return void
      * @throws Exception
      */
@@ -159,7 +182,8 @@ class Builder
     /**
      * Returns a branch by name.
      *
-     * @param mixed $name
+     * @param string $name The name.
+     *
      * @return Branch
      * @throws Exception
      */
@@ -171,7 +195,8 @@ class Builder
     /**
      * Returns the row by given branch name.
      *
-     * @param string $name
+     * @param string $name The name.
+     *
      * @return int
      * @throws Exception
      */
@@ -183,13 +208,16 @@ class Builder
     /**
      * Returns the y row position by given branch name.
      *
-     * @param string $name
-     * @param string $distanceType
+     * @param string $name         The name.
+     * @param string $distanceType The distance type.
+     *
      * @return int
      * @throws Exception
      */
-    public function getBranchRowY(string $name, string $distanceType = self::DISTANCE_TYPE_NONE): int
-    {
+    public function getBranchRowY(
+        string $name,
+        string $distanceType = self::DISTANCE_TYPE_NONE
+    ): int {
         return $this->getY($this->getBranchRow($name), $distanceType);
     }
 
@@ -216,7 +244,8 @@ class Builder
     /**
      * Adds the given step.
      *
-     * @param Step $step
+     * @param Step $step The step.
+     *
      * @return void
      */
     public function addStep(Step $step): void
@@ -237,8 +266,9 @@ class Builder
     /**
      * Sets the last step position given by branch name.
      *
-     * @param string $name
-     * @param int $lastStep
+     * @param string $name     The name.
+     * @param int    $lastStep The last step.
+     *
      * @return void
      * @throws Exception
      */
@@ -250,7 +280,8 @@ class Builder
     /**
      * Returns the last step position of given branch name.
      *
-     * @param string $name
+     * @param string $name The name.
+     *
      * @return ?int
      * @throws Exception
      */
@@ -276,7 +307,9 @@ class Builder
      */
     public function getHeight(): int
     {
-        return self::START_Y + $this->getNumberOfBranches() * self::ROW_WIDTH + self::FINISH_Y;
+        return self::START_Y +
+            $this->getNumberOfBranches() * self::ROW_WIDTH +
+            self::FINISH_Y;
     }
 
     /**
@@ -295,7 +328,11 @@ class Builder
 
         /* Initialize image magick */
         $this->imagick = new Imagick();
-        $this->imagick->newImage($this->width, $this->height, self::COLOR_BACKGROUND);
+        $this->imagick->newImage(
+            $this->width,
+            $this->height,
+            self::COLOR_BACKGROUND
+        );
         $this->imagick->setImageFormat(self::FORMAT_OUTPUT);
 
         /* Add the title of diagram. */
@@ -313,6 +350,7 @@ class Builder
      *
      * @throws ImagickDrawException
      * @throws ImagickException
+     * @return void
      */
     public function printTitle(): void
     {
@@ -342,7 +380,8 @@ class Builder
     /**
      * Draws a given step.
      *
-     * @param Step $step
+     * @param Step $step The step.
+     *
      * @return void
      * @throws ImagickDrawException
      * @throws ImagickException
@@ -355,22 +394,41 @@ class Builder
 
         /* Draw connections between points. */
         switch ($step->getType()) {
-            case self::REPOSITORY_NAME_INIT:
-                /* Nothing to do: First point. */
-                break;
+        case self::REPOSITORY_NAME_INIT:
+            /* Nothing to do: First point. */
+            break;
 
-            case self::REPOSITORY_NAME_CHECKOUT:
-                $this->drawStepConnection($step, $step->getSource(), $step->getTarget(), self::REPOSITORY_COLOR_CHECKOUT);
-                break;
+        case self::REPOSITORY_NAME_CHECKOUT:
+            $this->drawStepConnection(
+                $step,
+                $step->getSource(),
+                $step->getTarget(),
+                self::REPOSITORY_COLOR_CHECKOUT
+            );
+            break;
 
-            case self::REPOSITORY_NAME_COMMIT:
-                $this->drawStepConnection($step, $step->getSource(), $step->getTarget(), self::REPOSITORY_COLOR_COMMIT);
-                break;
+        case self::REPOSITORY_NAME_COMMIT:
+            $this->drawStepConnection(
+                $step,
+                $step->getSource(),
+                $step->getTarget(),
+                self::REPOSITORY_COLOR_COMMIT
+            );
+            break;
 
-            case self::REPOSITORY_NAME_MERGE:
-                $this->drawStepConnection($step, $step->getSource(), $step->getTarget(), self::REPOSITORY_COLOR_MERGE);
-                $this->drawStepConnection($step, $step->getTarget(), $step->getTarget(), self::CONNECTION_STROKE_COLOR);
-                break;
+        case self::REPOSITORY_NAME_MERGE:
+            $this->drawStepConnection(
+                $step, $step->getSource(),
+                $step->getTarget(),
+                self::REPOSITORY_COLOR_MERGE
+            );
+            $this->drawStepConnection(
+                $step,
+                $step->getTarget(),
+                $step->getTarget(),
+                self::CONNECTION_STROKE_COLOR
+            );
+            break;
         }
 
         /* Remember the last step position. */
@@ -380,7 +438,9 @@ class Builder
     /**
      * Draws the step point.
      *
-     * @param Step $step
+     * @param Step $step The step.
+     *
+     * @return void
      * @throws ImagickDrawException
      * @throws ImagickException
      * @throws ImagickPixelException
@@ -400,9 +460,17 @@ class Builder
         $y = $this->getY($this->branchContainer->get($target)->getRow());
 
         /* Set some properties. */
-        $draw->setFillColor(new ImagickPixel($this->branchContainer->get($target)->getFillColor()));
-        //$draw->setStrokeColor(new ImagickPixel($this->branchContainer->get($target)->getStrokeColor()));
-        $draw->setStrokeOpacity($this->branchContainer->get($target)->getStrokeOpacity());
+        $draw->setFillColor(
+            new ImagickPixel($this->branchContainer->get($target)->getFillColor())
+        );
+        //$draw->setStrokeColor(
+        //    new ImagickPixel(
+        //        $this->branchContainer->get($target)->getStrokeColor()
+        //    )
+        //);
+        $draw->setStrokeOpacity(
+            $this->branchContainer->get($target)->getStrokeOpacity()
+        );
         //$draw->setStrokeWidth($this->branchContainer->get($target)->getStrokeWidth());
         $draw->setStrokeColor(self::CONNECTION_STROKE_COLOR);
         $draw->setStrokeWidth(self::CONNECTION_STROKE_WIDTH);
@@ -415,17 +483,22 @@ class Builder
     /**
      * Draws a connection between the given and the last step.
      *
-     * @param Step $step
-     * @param ?string $source
-     * @param ?string $target
-     * @param string $color
+     * @param Step    $step   The step.
+     * @param ?string $source The source.
+     * @param ?string $target The target.
+     * @param string  $color  The color.
+     *
      * @return void
      * @throws ImagickDrawException
      * @throws ImagickException
      * @throws Exception
      */
-    public function drawStepConnection(Step $step, ?string $source, ?string $target, string $color): void
-    {
+    public function drawStepConnection(
+        Step $step,
+        ?string $source,
+        ?string $target,
+        string $color
+    ): void {
         /* Check source */
         if ($source === null) {
             throw new Exception('Null source given.');
@@ -445,7 +518,10 @@ class Builder
         }
 
         /* Calculates from x/y position of connection (source). */
-        $fromX = $this->getX($this->getLastStepPosition($source), self::DISTANCE_TYPE_LEFT);
+        $fromX = $this->getX(
+            $this->getLastStepPosition($source),
+            self::DISTANCE_TYPE_LEFT
+        );
         $fromY = $this->getBranchRowY($source);
 
         /* Calculates to x/y position of connection (target). */
@@ -467,7 +543,8 @@ class Builder
     /**
      * Draws the dotted branch line.
      *
-     * @param Branch $branch
+     * @param Branch $branch The branch.
+     *
      * @return void
      * @throws ImagickDrawException
      * @throws ImagickException
@@ -499,7 +576,8 @@ class Builder
     /**
      * Prints the branch name.
      *
-     * @param Branch $branch
+     * @param Branch $branch The branch.
+     *
      * @return void
      * @throws ImagickDrawException
      * @throws ImagickException
@@ -518,7 +596,9 @@ class Builder
         /* Calculates the position of text. */
         $x = self::START_X - self::TEXT_PADDING;
         $direction = $branch->getTargetSystem() ? -1 : 1;
-        $y1 = self::START_Y + $branch->getRow() * self::ROW_WIDTH + $direction * round($textHeight / 3);
+        $y1 = self::START_Y +
+            $branch->getRow() * self::ROW_WIDTH +
+            $direction * round($textHeight / 3);
 
         /* Set some properties. */
         //$draw->setFont('Arial');
@@ -534,8 +614,10 @@ class Builder
 
         /* Write text. */
         $targetSystem = $branch->getTargetSystem();
-        if ($targetSystem !== null && $targetSystem) {
-            $y2 = self::START_Y + $branch->getRow() * self::ROW_WIDTH + round($textHeight / 3);
+        if ($targetSystem) {
+            $y2 = self::START_Y +
+                $branch->getRow() * self::ROW_WIDTH +
+                round($textHeight / 3);
 
             $draw->annotation($x, $y2 + 20, $targetSystem);
             $this->imagick->drawImage($draw);
@@ -575,14 +657,19 @@ class Builder
     /**
      * Returns the bezier configuration of given two points.
      *
-     * @param int $fromX
-     * @param int $fromY
-     * @param int $toX
-     * @param int $toY
+     * @param int $fromX The from x.
+     * @param int $fromY The from y.
+     * @param int $toX   The x.
+     * @param int $toY   The y.
+     *
      * @return int[][]
      */
-    public function getBezierPoints(int $fromX, int $fromY, int $toX, int $toY): array
-    {
+    public function getBezierPoints(
+        int $fromX,
+        int $fromY,
+        int $toX,
+        int $toY
+    ): array {
         return [
             ['x' => $fromX, 'y' => $fromY],
             ['x' => $toX, 'y' => $fromY],
@@ -594,58 +681,74 @@ class Builder
     /**
      * Calculates the x from given stop and distance type.
      *
-     * @param int $step
-     * @param string $distanceType
+     * @param int    $step         The step.
+     * @param string $distanceType The distance type.
+     *
      * @return int
      * @throws Exception
      */
-    public function getX(int $step = 0, string $distanceType = self::DISTANCE_TYPE_NONE): int
-    {
+    public function getX(
+        int $step = 0,
+        string $distanceType = self::DISTANCE_TYPE_NONE
+    ): int {
         switch ($distanceType) {
-            case self::DISTANCE_TYPE_NONE:
-                $correction = 0;
-                break;
+        case self::DISTANCE_TYPE_NONE:
+            $correction = 0;
+            break;
 
-            case self::DISTANCE_TYPE_LEFT:
-                $correction = self::STEP_RADIUS + self::STEP_CONNECTION_DISTANCE;
-                break;
+        case self::DISTANCE_TYPE_LEFT:
+            $correction = self::STEP_RADIUS + self::STEP_CONNECTION_DISTANCE;
+            break;
 
-            case self::DISTANCE_TYPE_RIGHT:
-                $correction = -self::STEP_RADIUS - self::STEP_CONNECTION_DISTANCE;
-                break;
+        case self::DISTANCE_TYPE_RIGHT:
+            $correction = -self::STEP_RADIUS - self::STEP_CONNECTION_DISTANCE;
+            break;
 
-            default:
-                throw new Exception(sprintf('Unknown distance type "%s"', $distanceType));
+        default:
+            throw new Exception(
+                sprintf('Unknown distance type "%s"', $distanceType)
+            );
         }
 
-        return self::START_X + $step * self::STEP_WIDTH + self::STEP_WIDTH_FIRST + $correction;
+        return self::START_X +
+            $step * self::STEP_WIDTH +
+            self::STEP_WIDTH_FIRST +
+            $correction;
     }
 
     /**
      * Calculates the y from given row and distance type.
      *
-     * @param int $row
-     * @param string $distanceType
+     * @param int    $row          The row.
+     * @param string $distanceType The distance type.
+     *
      * @return int
      * @throws Exception
      */
-    public function getY(int $row = 0, string $distanceType = self::DISTANCE_TYPE_NONE): int
-    {
+    public function getY(
+        int $row = 0,
+        string $distanceType = self::DISTANCE_TYPE_NONE
+    ): int {
         switch ($distanceType) {
-            case self::DISTANCE_TYPE_NONE:
-                $correction = 0;
-                break;
+        case self::DISTANCE_TYPE_NONE:
+            $correction = 0;
+            break;
 
-            case self::DISTANCE_TYPE_TOP:
-                $correction = self::STEP_RADIUS;
-                break;
+        case self::DISTANCE_TYPE_TOP:
+            $correction = self::STEP_RADIUS;
+            break;
 
-            case self::DISTANCE_TYPE_BOTTOM:
-                $correction = -self::STEP_RADIUS;
-                break;
+        case self::DISTANCE_TYPE_BOTTOM:
+            $correction = -self::STEP_RADIUS;
+            break;
 
-            default:
-                throw new Exception(sprintf('Unknown distance type "%s"', $distanceType));
+        default:
+            throw new Exception(
+                sprintf(
+                    'Unknown distance type "%s"',
+                    $distanceType
+                )
+            );
         }
 
         return self::START_Y + $row * self::ROW_WIDTH + $correction;
@@ -654,7 +757,8 @@ class Builder
     /**
      * Saves the picture to given path.
      *
-     * @param string $path
+     * @param string $path The path.
+     *
      * @return void
      * @throws ImagickException
      */

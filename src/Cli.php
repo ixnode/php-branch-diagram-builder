@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Cli
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
@@ -33,28 +42,60 @@ use Ixnode\PHPBranchDiagramBuilder\Command\BuildCommand;
 use Ixnode\PHPBranchDiagramBuilder\Command\InfoCommand;
 use Exception;
 
+/**
+ * Class Cli
+ *
+ * @category Cli
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Cli
 {
-    /** @var string[] $argv */
+    /**
+     * The argv.
+     *
+     * @var string[] $argv 
+     */
     protected array $argv = array();
 
-    /** @var bool $argvLoaded */
+    /**
+     * The argv loaded.
+     *
+     * @var bool $argvLoaded 
+     */
     protected bool $argvLoaded = false;
 
-    /** @var Interactor|null $interactor */
+    /**
+     * The interactor.
+     *
+     * @var Interactor|null $interactor 
+     */
     protected ?Interactor $interactor = null;
 
-    /** @var callable The callable to perform exit */
+    /**
+     * The callable to perform exit
+     *
+     * @var callable $onExit
+     */
     protected $onExit;
 
     /**
      * Cli constructor.
      *
-     * @param string|null $command
+     * @param ?string    $command    The command.
+     * @param Interactor $interactor The interactor.
+     * @param callable   $onExit     The on exit.
+     *
      * @throws Exception
      */
-    public function __construct(string $command = null, Interactor $interactor = null, callable $onExit = null)
-    {
+    public function __construct(
+        string $command = null,
+        Interactor $interactor = null,
+        callable $onExit = null
+    ) {
         // @codeCoverageIgnoreStart
         $this->onExit = $onExit ?? function ($exitCode = 0) {
             exit($exitCode);
@@ -84,7 +125,8 @@ class Cli
     /**
      * Parse given command and split into arguments with the help of bash.
      *
-     * @param string $command
+     * @param string $command The command.
+     *
      * @return string[]
      */
     public function parseCommandWithBash(string $command): array
@@ -100,7 +142,8 @@ class Cli
     /**
      * Parse given command and split into arguments with the help of str_getcsv.
      *
-     * @param string $command
+     * @param string $command The command.
+     *
      * @return string[]
      */
     public function parseCommand(string $command): array
@@ -108,16 +151,19 @@ class Cli
         $parsed = str_getcsv($command, ' ');
 
         return array_values(
-            array_filter($parsed, function ($value) {
-                return ($value !== null && $value !== false && $value !== "");
-            })
+            array_filter(
+                $parsed, function ($value) {
+                    return ($value !== null && $value !== false && $value !== "");
+                }
+            )
         );
     }
 
     /**
      * Set argument list.
      *
-     * @param string[] $argv
+     * @param string[] $argv The argv.
+     *
      * @return void
      */
     protected function setArgv(array $argv): void

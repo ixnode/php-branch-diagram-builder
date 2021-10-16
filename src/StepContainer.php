@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,19 +22,43 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category StepContainer
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
 
+/**
+ * Class StepContainer
+ *
+ * @category StepContainer
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class StepContainer
 {
-    /** @var Step[] $steps */
+    /**
+     * The steps.
+     *
+     * @var Step[] $steps 
+     */
     protected array $steps = [];
 
     /**
      * Adds the given step to container.
      *
-     * @param Step $step
+     * @param Step $step The steps.
+     *
      * @return void
      */
     public function add(Step $step): void

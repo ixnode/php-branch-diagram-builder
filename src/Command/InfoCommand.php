@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category InfoCommand
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Command;
@@ -30,6 +39,16 @@ use Ahc\Cli\Application as App;
 use Exception;
 use Ixnode\PHPBranchDiagramBuilder\Builder;
 
+/**
+ * Class InfoCommand
+ *
+ * @category InfoCommand
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class InfoCommand extends BaseCommand
 {
     const COMMAND = 'info';
@@ -41,8 +60,9 @@ class InfoCommand extends BaseCommand
     /**
      * GenerateKeysCommand constructor.
      *
-     * @param bool $allowUnknown
-     * @param App|null $app
+     * @param bool     $allowUnknown The bool value of allow unknown.
+     * @param App|null $app          The app.
+     *
      * @throws Exception
      */
     public function __construct(bool $allowUnknown = false, App $app = null)
@@ -63,7 +83,17 @@ class InfoCommand extends BaseCommand
      */
     public function handle(): void
     {
-        $this->logger->info('Name:    {name}', ['name' => Builder::NAME], false, true);
-        $this->logger->info('Version: {version}', ['version' => Builder::VERSION], true, true);
+        $this->logger->info(
+            'Name:    {name}',
+            ['name' => Builder::NAME],
+            false,
+            true
+        );
+        $this->logger->info(
+            'Version: {version}',
+            ['version' => Builder::VERSION],
+            true,
+            true
+        );
     }
 }

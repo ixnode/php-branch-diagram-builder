@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,12 +22,31 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Branch
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
 
 use Exception;
 
+/**
+ * Class Branch
+ *
+ * @category Branch
+ * @package  Ixnode\PHPBranchDiagramBuilder
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Branch
 {
     protected string $name;
@@ -42,7 +61,11 @@ class Branch
 
     protected string $strokeColor;
 
-    /** @var int[] */
+    /**
+     * The stroke dash array.
+     *
+     * @var int[]
+     */
     protected array $strokeDashArray = [5, 5];
 
     protected int $strokeOpacity = 1;
@@ -58,12 +81,15 @@ class Branch
     /**
      * Branch constructor.
      *
-     * @param string $colorFill
-     * @param string $colorStroke
-     * @param string|null $colorText
+     * @param string      $colorFill   The color fill.
+     * @param string      $colorStroke The color stroke.
+     * @param string|null $colorText   The color text.
      */
-    public function __construct(string $colorFill, string $colorStroke, string $colorText = null)
-    {
+    public function __construct(
+        string $colorFill,
+        string $colorStroke,
+        string $colorText = null
+    ) {
         $this->fillColor = $colorFill;
         $this->strokeColor = $colorStroke;
         $this->textColor = $colorText;
@@ -75,7 +101,9 @@ class Branch
     /**
      * Sets the name of this branch.
      *
-     * @param string $name
+     * @param string $name The name.
+     *
+     * @return void
      */
     public function setName(string $name): void
     {
@@ -95,7 +123,9 @@ class Branch
     /**
      * Sets the title of this branch.
      *
-     * @param string $title
+     * @param string $title The title.
+     *
+     * @return void
      */
     public function setTitle(string $title): void
     {
@@ -115,7 +145,9 @@ class Branch
     /**
      * Sets the target system.
      *
-     * @param string|null $targetSystem
+     * @param string|null $targetSystem The target system.
+     *
+     * @return void.
      */
     public function setTargetSystem(?string $targetSystem): void
     {
@@ -135,7 +167,9 @@ class Branch
     /**
      * Sets the row of this branch.
      *
-     * @param int $row
+     * @param int $row The row.
+     *
+     * @return void
      */
     public function setRow(int $row): void
     {
@@ -183,6 +217,8 @@ class Branch
     }
 
     /**
+     * Returns the stroke opacity.
+     *
      * @return int
      */
     public function getStrokeOpacity(): int
@@ -191,6 +227,8 @@ class Branch
     }
 
     /**
+     * Returns the stroke width.
+     *
      * @return int
      */
     public function getStrokeWidth(): int
@@ -221,13 +259,23 @@ class Branch
     /**
      * Sets the last step number of this branch.
      *
-     * @param int $lastStepPosition
+     * @param int $lastStepPosition The last step position.
+     *
      * @throws Exception
+     * @return void
      */
     public function setLastStepPosition(int $lastStepPosition): void
     {
         if ($lastStepPosition < $this->lastStepPosition) {
-            throw new Exception(sprintf('The new last step number "%d" must be greater or equal than the last one %s.', $lastStepPosition, $this->lastStepPosition));
+            throw new Exception(
+                sprintf(
+                    <<<TEXT
+The new last step number "%d" must be greater or equal than the last one %s.
+TEXT,
+                    $lastStepPosition,
+                    $this->lastStepPosition
+                )
+            );
         }
 
         $this->lastStepPosition = $lastStepPosition;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,12 +22,31 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Display
+ * @package  Ixnode\PHPBranchDiagramBuilder\Logger
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Logger;
 
 use Exception;
 
+/**
+ * Class Display
+ *
+ * @category Display
+ * @package  Ixnode\PHPBranchDiagramBuilder\Logger
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Display
 {
     protected Logger $logger;
@@ -35,7 +54,7 @@ class Display
     /**
      * Display constructor.
      *
-     * @param Logger $logger
+     * @param Logger $logger The logger.
      */
     public function __construct(Logger $logger)
     {
@@ -45,48 +64,72 @@ class Display
     /**
      * Indicates that given file was not found.
      *
-     * @param string $file
+     * @param string $file The file.
+     *
      * @return void
      * @throws Exception
      */
     public function fileNotFound(string $file): void
     {
-        $this->logger->error('The given file "{file}" was not found.', array('file' => $file, ), true, true);
+        $this->logger->error(
+            'The given file "{file}" was not found.',
+            array('file' => $file, ),
+            true,
+            true
+        );
     }
 
     /**
      * Indicates that the given file already exists.
      *
-     * @param string $file
+     * @param string $file The file.
+     *
      * @return void
      * @throws Exception
      */
     public function fileAlreadyExists(string $file): void
     {
-        $this->logger->error('File "{file}" already exist. Abort.', ['file' => $file, ], true, true);
+        $this->logger->error(
+            'File "{file}" already exist. Abort.',
+            ['file' => $file, ],
+            true,
+            true
+        );
     }
 
     /**
      * Indicates that an error occurred while trying to write the given file.
      *
-     * @param string $file
+     * @param string $file The file.
+     *
      * @return void
      * @throws Exception
      */
     public function writeFileErrorOccurred(string $file): void
     {
-        $this->logger->error('An error occurred while trying to write the env file "{file}".', ['file' => $file, ], true, true);
+        $this->logger->error(
+            'An error occurred while trying to write the env file "{file}".',
+            ['file' => $file, ],
+            true,
+            true
+        );
     }
 
     /**
      * Indicates that the file was successfully written.
      *
-     * @param string $file
+     * @param string $file The file.
+     *
      * @return void
      * @throws Exception
      */
     public function successfullyWritten(string $file): void
     {
-        $this->logger->ok('The given file "{file}" was successfully written.', ['file' => $file, ], true, true);
+        $this->logger->ok(
+            'The given file "{file}" was successfully written.',
+            ['file' => $file, ],
+            true,
+            true
+        );
     }
 }

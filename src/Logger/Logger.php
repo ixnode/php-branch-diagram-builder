@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,6 +22,15 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category Logger
+ * @package  Ixnode\PHPBranchDiagramBuilder\Logger
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Logger;
@@ -29,6 +38,16 @@ namespace Ixnode\PHPBranchDiagramBuilder\Logger;
 use Exception;
 use Ahc\Cli\Output\Writer;
 
+/**
+ * Class Logger
+ *
+ * @category Logger
+ * @package  Ixnode\PHPBranchDiagramBuilder\Logger
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class Logger
 {
     const LOG_LEVEL_INFO = 0;
@@ -48,7 +67,7 @@ class Logger
     /**
      * Logger constructor.
      *
-     * @param Writer $writer
+     * @param Writer $writer The writer.
      */
     public function __construct(Writer $writer)
     {
@@ -80,76 +99,102 @@ class Logger
     /**
      * Info logger.
      *
-     * @param string $message
-     * @param string[]|int[] $context
-     * @param bool $eol
-     * @param bool $sol
+     * @param string         $message The message.
+     * @param string[]|int[] $context The context.
+     * @param bool           $eol     The eol.
+     * @param bool           $sol     The sol.
+     *
      * @return void
      * @throws Exception
      */
-    public function info(string $message, array $context = array(), bool $eol = false, bool $sol = false): void
-    {
+    public function info(
+        string $message,
+        array $context = array(),
+        bool $eol = false,
+        bool $sol = false
+    ): void {
         $this->log(self::LOG_LEVEL_INFO, $message, $context, $eol, $sol);
     }
 
     /**
      * Ok logger.
      *
-     * @param string $message
-     * @param string[]|int[] $context
-     * @param bool $eol
-     * @param bool $sol
+     * @param string         $message The message.
+     * @param string[]|int[] $context The context.
+     * @param bool           $eol     The eol.
+     * @param bool           $sol     The sol.
+     *
      * @return void
      * @throws Exception
      */
-    public function ok(string $message, array $context = array(), bool $eol = false, bool $sol = false): void
-    {
+    public function ok(
+        string $message,
+        array $context = array(),
+        bool $eol = false,
+        bool $sol = false
+    ): void {
         $this->log(self::LOG_LEVEL_OK, $message, $context, $eol, $sol);
     }
 
     /**
      * Warn logger.
      *
-     * @param string $message
-     * @param string[]|int[] $context
-     * @param bool $eol
-     * @param bool $sol
+     * @param string         $message The message.
+     * @param string[]|int[] $context The context.
+     * @param bool           $eol     The eol.
+     * @param bool           $sol     The sol.
+     *
      * @return void
      * @throws Exception
      */
-    public function warn(string $message, array $context = array(), bool $eol = false, bool $sol = false): void
-    {
+    public function warn(
+        string $message,
+        array $context = array(),
+        bool $eol = false,
+        bool $sol = false
+    ): void {
         $this->log(self::LOG_LEVEL_WARN, $message, $context, $eol, $sol);
     }
 
     /**
      * Error logger.
      *
-     * @param string $message
-     * @param string[]|int[] $context
-     * @param bool $eol
-     * @param bool $sol
+     * @param string         $message The message.
+     * @param string[]|int[] $context The context.
+     * @param bool           $eol     The eol.
+     * @param bool           $sol     The sol.
+     *
      * @return void
      * @throws Exception
      */
-    public function error(string $message, array $context = array(), bool $eol = false, bool $sol = false): void
-    {
+    public function error(
+        string $message,
+        array $context = array(),
+        bool $eol = false,
+        bool $sol = false
+    ): void {
         $this->log(self::LOG_LEVEL_ERROR, $message, $context, $eol, $sol);
     }
 
     /**
      * Log wrap function.
      *
-     * @param int $level
-     * @param string $message
-     * @param string[]|int[] $context
-     * @param bool $eol
-     * @param bool $sol
+     * @param int            $level   The level.
+     * @param string         $message The message.
+     * @param string[]|int[] $context The context.
+     * @param bool           $eol     The eol.
+     * @param bool           $sol     The sol.
+     *
      * @return void
      * @throws Exception
      */
-    protected function log(int $level, string $message, array $context = array(), bool $eol = false, bool $sol = false): void
-    {
+    protected function log(
+        int $level,
+        string $message,
+        array $context = array(),
+        bool $eol = false,
+        bool $sol = false
+    ): void {
         /* Interpolates the given $message with the given $context. */
         $message = $this->interpolate($message, $context);
 
@@ -160,19 +205,30 @@ class Logger
 
         /* Print log message. */
         switch ($level) {
-            case self::LOG_LEVEL_OK: $this->writer->ok($message, $eol); break;
-            case self::LOG_LEVEL_INFO: $this->writer->info($message, $eol); break;
-            case self::LOG_LEVEL_WARN: $this->writer->warn($message, $eol); break;
-            case self::LOG_LEVEL_ERROR: $this->writer->error($message, $eol); break;
-            default: throw new Exception($this->interpolate('The given log level "{log-level}" is unknown.', array('log-level' => $level)));
+        case self::LOG_LEVEL_OK: $this->writer->ok($message, $eol); 
+            break;
+        case self::LOG_LEVEL_INFO: $this->writer->info($message, $eol); 
+            break;
+        case self::LOG_LEVEL_WARN: $this->writer->warn($message, $eol); 
+            break;
+        case self::LOG_LEVEL_ERROR: $this->writer->error($message, $eol); 
+            break;
+        default: 
+            throw new Exception(
+                $this->interpolate(
+                    'The given log level "{log-level}" is unknown.',
+                    array('log-level' => $level)
+                )
+            );
         }
     }
 
     /**
      * Interpolates context values into the message placeholders.
      *
-     * @param string $message
-     * @param string[]|int[] $context
+     * @param string         $message The message.
+     * @param string[]|int[] $context The context.
+     *
      * @return string
      */
     protected function interpolate(string $message, array $context = array()): string

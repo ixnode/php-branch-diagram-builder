@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-/*
+/**
  * MIT License
  *
  * Copyright (c) 2021 Björn Hempel <bjoern@hempel.li>
@@ -22,15 +22,36 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ *
+ * PHP version 8
+ *
+ * @category NullException
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  GIT: 1.0.0
+ * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Exception;
 
+/**
+ * Class NullException
+ *
+ * @category NullException
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @version  Release: @package_version@
+ * @link     https://www.hempel.li
+ */
 class NullException extends BaseException
 {
     const FUNCTION_PREG_REPLACE = 'preg_replace';
 
-    const TEXT_NULL_EXCEPTION = 'An error occurred while trying to execute %s (%s:%d).';
+    const TEXT_NULL_EXCEPTION = <<<TEXT
+An error occurred while trying to execute %s (%s:%d).
+TEXT;
 
     /**
      * Returns the return code of this exception class.
