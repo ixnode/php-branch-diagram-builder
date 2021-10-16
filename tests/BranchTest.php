@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * MIT License
@@ -24,12 +26,22 @@
  * SOFTWARE.
  */
 
-namespace Test\Ixnode\PhpBranchDiagramBuilder;
+namespace Ixnode\PHPBranchDiagramBuilder\Tests;
 
 use Ixnode\PHPBranchDiagramBuilder\Branch;
 use Ixnode\PHPBranchDiagramBuilder\Builder;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class BranchTest
+ *
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Test
+ * @package  Ixnode\PHPBranchDiagramBuilder\Tests
+ */
 final class BranchTest extends TestCase
 {
     /**

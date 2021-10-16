@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category BaseCommand
- * @package  Ixnode\PHPBranchDiagramBuilder\Command
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Command;
@@ -53,18 +46,18 @@ use Throwable;
 /**
  * Class BaseCommand
  *
- * @category BaseCommand
- * @package  Ixnode\PHPBranchDiagramBuilder\Command
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Command
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
  */
 abstract class BaseCommand extends Command
 {
-    const LOGO = 'PHPVault command line interpreter.';
+    public const LOGO = 'PHPVault command line interpreter.';
 
-    const TEMPLATE_SIMPLE_EXCEPTION = '<eol/><boldRed>%s</end><red>: %s</end><eol/>';
+    public const TEMPLATE_SIMPLE_EXCEPTION = '<eol/><boldRed>%s</end><red>: %s</end><eol/>';
 
     protected Writer $writer;
 
@@ -89,12 +82,8 @@ abstract class BaseCommand extends Command
      *
      * @throws Exception
      */
-    public function __construct(
-        string $name,
-        string $desc = '',
-        bool $allowUnknown = false,
-        App $app = null
-    ) {
+    public function __construct(string $name, string $desc = '', bool $allowUnknown = false, App $app = null)
+    {
         parent::__construct($name, $desc, $allowUnknown, $app);
 
         /**
@@ -115,9 +104,12 @@ abstract class BaseCommand extends Command
 
         /* Add debug option */
         $this->option(
-            '-D --debug', 'Set application in debug mode.', function ($value) {
+            '-D --debug',
+            'Set application in debug mode.',
+            function ($value) {
                 return TypeCheck::isBoolean($value);
-            }, false
+            },
+            false
         );
     }
 
@@ -186,10 +178,8 @@ abstract class BaseCommand extends Command
      * @return mixed
      * @throws Exception
      */
-    protected function getOption(
-        string $option, $default = null,
-        bool $replaceWithDefaultIfTrue = false
-    ) {
+    protected function getOption(string $option, $default = null, bool $replaceWithDefaultIfTrue = false)
+    {
         $option = $this->convertToCamelCase($option);
 
         $return = $this->registered($option) ? $this->$option : $default;
@@ -241,7 +231,8 @@ abstract class BaseCommand extends Command
         $array = array_map(
             function ($element) {
                 return ucfirst(strtolower($element));
-            }, $array
+            },
+            $array
         );
 
         /* Rebuild string. */

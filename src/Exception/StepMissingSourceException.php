@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category StepMissingSourceException
- * @package  Ixnode\PHPBranchDiagramBuilder\Exception
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Exception;
@@ -40,16 +33,16 @@ use Throwable;
 /**
  * Class StepMissingSourceException
  *
- * @category StepMissingSourceException
- * @package  Ixnode\PHPBranchDiagramBuilder\Exception
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Exception
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
  */
 class StepMissingSourceException extends BaseException
 {
-    const TEXT_STEP_MISSING_SOURCE = <<<TEXT
+    public const TEXT_STEP_MISSING_SOURCE = <<<TEXT
 No source branch was given to current step type.
 TEXT;
 

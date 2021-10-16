@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /*
  * MIT License
@@ -38,6 +40,16 @@ use Ixnode\PHPBranchDiagramBuilder\Exception\StepUnnecessarySourceException;
 use Ixnode\PHPBranchDiagramBuilder\Step;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class StepTest
+ *
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Test
+ * @package  Ixnode\PHPBranchDiagramBuilder\Tests
+ */
 final class StepTest extends TestCase
 {
     /**

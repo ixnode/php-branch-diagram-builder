@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category Logger
- * @package  Ixnode\PHPBranchDiagramBuilder\Logger
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Logger;
@@ -41,24 +34,24 @@ use Ahc\Cli\Output\Writer;
 /**
  * Class Logger
  *
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
  * @category Logger
  * @package  Ixnode\PHPBranchDiagramBuilder\Logger
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
  */
 class Logger
 {
-    const LOG_LEVEL_INFO = 0;
+    public const LOG_LEVEL_INFO = 0;
 
-    const LOG_LEVEL_OK = 1;
+    public const LOG_LEVEL_OK = 1;
 
-    const LOG_LEVEL_WARN = 2;
+    public const LOG_LEVEL_WARN = 2;
 
-    const LOG_LEVEL_ERROR = 3;
+    public const LOG_LEVEL_ERROR = 3;
 
-    const LB = "\n";
+    public const LB = "\n";
 
     protected Writer $writer;
 
@@ -205,15 +198,15 @@ class Logger
 
         /* Print log message. */
         switch ($level) {
-        case self::LOG_LEVEL_OK: $this->writer->ok($message, $eol); 
+        case self::LOG_LEVEL_OK: $this->writer->ok($message, $eol);
             break;
-        case self::LOG_LEVEL_INFO: $this->writer->info($message, $eol); 
+        case self::LOG_LEVEL_INFO: $this->writer->info($message, $eol);
             break;
-        case self::LOG_LEVEL_WARN: $this->writer->warn($message, $eol); 
+        case self::LOG_LEVEL_WARN: $this->writer->warn($message, $eol);
             break;
-        case self::LOG_LEVEL_ERROR: $this->writer->error($message, $eol); 
+        case self::LOG_LEVEL_ERROR: $this->writer->error($message, $eol);
             break;
-        default: 
+        default:
             throw new Exception(
                 $this->interpolate(
                     'The given log level "{log-level}" is unknown.',

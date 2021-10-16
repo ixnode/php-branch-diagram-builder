@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category InfoCommand
- * @package  Ixnode\PHPBranchDiagramBuilder\Command
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Command;
@@ -42,20 +35,20 @@ use Ixnode\PHPBranchDiagramBuilder\Builder;
 /**
  * Class InfoCommand
  *
- * @category InfoCommand
- * @package  Ixnode\PHPBranchDiagramBuilder\Command
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Command
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
  */
 class InfoCommand extends BaseCommand
 {
-    const COMMAND = 'info';
+    public const COMMAND = 'info';
 
-    const ALIAS = 'i';
+    public const ALIAS = 'i';
 
-    const DESCRIPTION = 'Shows information.';
+    public const DESCRIPTION = 'Shows information.';
 
     /**
      * GenerateKeysCommand constructor.
@@ -91,7 +84,7 @@ class InfoCommand extends BaseCommand
         );
         $this->logger->info(
             'Version: {version}',
-            ['version' => Builder::VERSION],
+            ['version' => $this->_app->version()],
             true,
             true
         );

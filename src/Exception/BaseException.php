@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category BaseException
- * @package  Ixnode\PHPBranchDiagramBuilder\Exception
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Exception;
@@ -40,26 +33,26 @@ use Exception;
 /**
  * Class BaseException
  *
- * @category BaseException
- * @package  Ixnode\PHPBranchDiagramBuilder\Exception
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Exception
+ * @package  Ixnode\PHPBranchDiagramBuilder\Exception
  */
 abstract class BaseException extends Exception
 {
     /* General codes */
-    const RETURN_CODE_NULL = 100;
+    public const RETURN_CODE_NULL = 100;
 
     /* Step codes */
-    const RETURN_CODE_STEP_UNKNOWN_TYPE = 101;
-    const RETURN_CODE_STEP_MISSING_SOURCE = 102;
-    const RETURN_CODE_STEP_UNNECESSARY_SOURCE = 103;
-    const RETURN_CODE_STEP_MISSING_TARGET = 104;
-    const RETURN_CODE_STEP_EQUAL_SOURCE_AND_TARGET = 105;
-    const RETURN_CODE_STEP_NOT_EQUAL_SOURCE_AND_TARGET = 106;
-    const RETURN_CODE_FUNCTION_DOES_NOT_EXIST = 107;
+    public const RETURN_CODE_STEP_UNKNOWN_TYPE = 101;
+    public const RETURN_CODE_STEP_MISSING_SOURCE = 102;
+    public const RETURN_CODE_STEP_UNNECESSARY_SOURCE = 103;
+    public const RETURN_CODE_STEP_MISSING_TARGET = 104;
+    public const RETURN_CODE_STEP_EQUAL_SOURCE_AND_TARGET = 105;
+    public const RETURN_CODE_STEP_NOT_EQUAL_SOURCE_AND_TARGET = 106;
+    public const RETURN_CODE_FUNCTION_DOES_NOT_EXIST = 107;
 
     /**
      * Returns the return code of current exception.

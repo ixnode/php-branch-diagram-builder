@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category Builder
- * @package  Ixnode\PHPBranchDiagramBuilder
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
@@ -46,20 +39,18 @@ use ImagickPixelException;
 /**
  * Class Builder
  *
- * @category Builder
- * @package  Ixnode\PHPBranchDiagramBuilder
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Main
+ * @package  Ixnode\PHPBranchDiagramBuilder
  */
 class Builder
 {
-    const NAME = 'PHPBranchDiagramBuilder';
+    public const NAME = 'PHPBranchDiagramBuilder';
 
-    const VERSION = 'v1.0.1';
-
-    const PNG_EXTENSION = 'png';
+    public const PNG_EXTENSION = 'png';
 
     protected Imagick $imagick;
 
@@ -73,89 +64,89 @@ class Builder
 
     protected int $height = 0;
 
-    const WIDTH = 2500;
+    public const WIDTH = 2500;
 
-    const START_X = 220;
+    public const START_X = 220;
 
-    const START_Y = 150;
+    public const START_Y = 150;
 
-    const FINISH_X = 50;
+    public const FINISH_X = 50;
 
-    const FINISH_Y = 50;
+    public const FINISH_Y = 50;
 
-    const STEP_RADIUS = 15;
+    public const STEP_RADIUS = 15;
 
-    const STEP_CONNECTION_DISTANCE = 8;
+    public const STEP_CONNECTION_DISTANCE = 8;
 
-    const STEP_WIDTH_FIRST = 20;
+    public const STEP_WIDTH_FIRST = 20;
 
-    const STEP_WIDTH = 80;
+    public const STEP_WIDTH = 80;
 
-    const ROW_WIDTH = 80;
+    public const ROW_WIDTH = 80;
 
-    const COLOR_BACKGROUND = '#fff';
+    public const COLOR_BACKGROUND = '#fff';
 
-    const CONNECTION_FILL_COLOR = '#fff';
+    public const CONNECTION_FILL_COLOR = '#fff';
 
-    const CONNECTION_FILL_OPACITY = 0;
+    public const CONNECTION_FILL_OPACITY = 0;
 
-    const CONNECTION_STROKE_COLOR = '#606060';
+    public const CONNECTION_STROKE_COLOR = '#606060';
 
-    const CONNECTION_STROKE_OPACITY = 1;
+    public const CONNECTION_STROKE_OPACITY = 1;
 
-    const CONNECTION_STROKE_WIDTH = 3;
+    public const CONNECTION_STROKE_WIDTH = 3;
 
-    const FORMAT_OUTPUT = 'png';
+    public const FORMAT_OUTPUT = 'png';
 
-    const REPOSITORY_NAME_INIT = 'init';
+    public const REPOSITORY_NAME_INIT = 'init';
 
-    const REPOSITORY_NAME_CHECKOUT = 'checkout';
+    public const REPOSITORY_NAME_CHECKOUT = 'checkout';
 
-    const REPOSITORY_NAME_COMMIT = 'commit';
+    public const REPOSITORY_NAME_COMMIT = 'commit';
 
-    const REPOSITORY_NAME_MERGE = 'merge';
+    public const REPOSITORY_NAME_MERGE = 'merge';
 
-    const REPOSITORY_COLOR_INIT = '#606060';
+    public const REPOSITORY_COLOR_INIT = '#606060';
 
-    const REPOSITORY_COLOR_CHECKOUT = '#0083b3';
+    public const REPOSITORY_COLOR_CHECKOUT = '#0083b3';
 
-    const REPOSITORY_COLOR_COMMIT = '#00b368';
+    public const REPOSITORY_COLOR_COMMIT = '#00b368';
 
-    const REPOSITORY_COLOR_MERGE = '#b30000';
+    public const REPOSITORY_COLOR_MERGE = '#b30000';
 
-    const REPOSITORY_BRANCH_MASTER = 'master';
+    public const REPOSITORY_BRANCH_MASTER = 'master';
 
-    const REPOSITORY_BRANCH_PRE_MASTER = 'pre-master';
+    public const REPOSITORY_BRANCH_PRE_MASTER = 'pre-master';
 
-    const REPOSITORY_BRANCH_HOTFIX = 'hotfix';
+    public const REPOSITORY_BRANCH_HOTFIX = 'hotfix';
 
-    const REPOSITORY_BRANCH_DEVELOP = 'develop';
+    public const REPOSITORY_BRANCH_DEVELOP = 'develop';
 
-    const REPOSITORY_BRANCH_TESTING = 'testing';
+    public const REPOSITORY_BRANCH_TESTING = 'testing';
 
-    const REPOSITORY_BRANCH_FEATURE = 'feature';
+    public const REPOSITORY_BRANCH_FEATURE = 'feature';
 
-    const TEXT_PADDING = 20;
+    public const TEXT_PADDING = 20;
 
-    const TITLE_TEXT_SIZE = 40;
+    public const TITLE_TEXT_SIZE = 40;
 
-    const TITLE_FILL_COLOR = '#606060';
+    public const TITLE_FILL_COLOR = '#606060';
 
-    const DISTANCE_TYPE_NONE = 'none';
+    public const DISTANCE_TYPE_NONE = 'none';
 
-    const DISTANCE_TYPE_LEFT = 'left';
+    public const DISTANCE_TYPE_LEFT = 'left';
 
-    const DISTANCE_TYPE_RIGHT = 'right';
+    public const DISTANCE_TYPE_RIGHT = 'right';
 
-    const DISTANCE_TYPE_TOP = 'top';
+    public const DISTANCE_TYPE_TOP = 'top';
 
-    const DISTANCE_TYPE_BOTTOM = 'bottom';
+    public const DISTANCE_TYPE_BOTTOM = 'bottom';
 
     /**
      * Builder constructor.
      *
      * @param string $title The title.
-     * @param int    $width The Width.
+     * @param int $width The Width.
      */
     public function __construct(string $title, int $width = self::WIDTH)
     {
@@ -168,7 +159,7 @@ class Builder
     /**
      * Adds the given branch by name.
      *
-     * @param string $name   The name.
+     * @param string $name The name.
      * @param Branch $branch The branch.
      *
      * @return void
@@ -208,7 +199,7 @@ class Builder
     /**
      * Returns the y row position by given branch name.
      *
-     * @param string $name         The name.
+     * @param string $name The name.
      * @param string $distanceType The distance type.
      *
      * @return int
@@ -266,8 +257,8 @@ class Builder
     /**
      * Sets the last step position given by branch name.
      *
-     * @param string $name     The name.
-     * @param int    $lastStep The last step.
+     * @param string $name The name.
+     * @param int $lastStep The last step.
      *
      * @return void
      * @throws Exception
@@ -348,9 +339,9 @@ class Builder
     /**
      * Prints the title to document
      *
-     * @throws ImagickDrawException
-     * @throws ImagickException
      * @return void
+     * @throws ImagickException
+     * @throws ImagickDrawException
      */
     public function printTitle(): void
     {
@@ -394,41 +385,42 @@ class Builder
 
         /* Draw connections between points. */
         switch ($step->getType()) {
-        case self::REPOSITORY_NAME_INIT:
-            /* Nothing to do: First point. */
-            break;
+            case self::REPOSITORY_NAME_INIT:
+                /* Nothing to do: First point. */
+                break;
 
-        case self::REPOSITORY_NAME_CHECKOUT:
-            $this->drawStepConnection(
-                $step,
-                $step->getSource(),
-                $step->getTarget(),
-                self::REPOSITORY_COLOR_CHECKOUT
-            );
-            break;
+            case self::REPOSITORY_NAME_CHECKOUT:
+                $this->drawStepConnection(
+                    $step,
+                    $step->getSource(),
+                    $step->getTarget(),
+                    self::REPOSITORY_COLOR_CHECKOUT
+                );
+                break;
 
-        case self::REPOSITORY_NAME_COMMIT:
-            $this->drawStepConnection(
-                $step,
-                $step->getSource(),
-                $step->getTarget(),
-                self::REPOSITORY_COLOR_COMMIT
-            );
-            break;
+            case self::REPOSITORY_NAME_COMMIT:
+                $this->drawStepConnection(
+                    $step,
+                    $step->getSource(),
+                    $step->getTarget(),
+                    self::REPOSITORY_COLOR_COMMIT
+                );
+                break;
 
-        case self::REPOSITORY_NAME_MERGE:
-            $this->drawStepConnection(
-                $step, $step->getSource(),
-                $step->getTarget(),
-                self::REPOSITORY_COLOR_MERGE
-            );
-            $this->drawStepConnection(
-                $step,
-                $step->getTarget(),
-                $step->getTarget(),
-                self::CONNECTION_STROKE_COLOR
-            );
-            break;
+            case self::REPOSITORY_NAME_MERGE:
+                $this->drawStepConnection(
+                    $step,
+                    $step->getSource(),
+                    $step->getTarget(),
+                    self::REPOSITORY_COLOR_MERGE
+                );
+                $this->drawStepConnection(
+                    $step,
+                    $step->getTarget(),
+                    $step->getTarget(),
+                    self::CONNECTION_STROKE_COLOR
+                );
+                break;
         }
 
         /* Remember the last step position. */
@@ -483,10 +475,10 @@ class Builder
     /**
      * Draws a connection between the given and the last step.
      *
-     * @param Step    $step   The step.
+     * @param Step $step The step.
      * @param ?string $source The source.
      * @param ?string $target The target.
-     * @param string  $color  The color.
+     * @param string $color The color.
      *
      * @return void
      * @throws ImagickDrawException
@@ -659,8 +651,8 @@ class Builder
      *
      * @param int $fromX The from x.
      * @param int $fromY The from y.
-     * @param int $toX   The x.
-     * @param int $toY   The y.
+     * @param int $toX The x.
+     * @param int $toY The y.
      *
      * @return int[][]
      */
@@ -681,7 +673,7 @@ class Builder
     /**
      * Calculates the x from given stop and distance type.
      *
-     * @param int    $step         The step.
+     * @param int $step The step.
      * @param string $distanceType The distance type.
      *
      * @return int
@@ -692,22 +684,22 @@ class Builder
         string $distanceType = self::DISTANCE_TYPE_NONE
     ): int {
         switch ($distanceType) {
-        case self::DISTANCE_TYPE_NONE:
-            $correction = 0;
-            break;
+            case self::DISTANCE_TYPE_NONE:
+                $correction = 0;
+                break;
 
-        case self::DISTANCE_TYPE_LEFT:
-            $correction = self::STEP_RADIUS + self::STEP_CONNECTION_DISTANCE;
-            break;
+            case self::DISTANCE_TYPE_LEFT:
+                $correction = self::STEP_RADIUS + self::STEP_CONNECTION_DISTANCE;
+                break;
 
-        case self::DISTANCE_TYPE_RIGHT:
-            $correction = -self::STEP_RADIUS - self::STEP_CONNECTION_DISTANCE;
-            break;
+            case self::DISTANCE_TYPE_RIGHT:
+                $correction = -self::STEP_RADIUS - self::STEP_CONNECTION_DISTANCE;
+                break;
 
-        default:
-            throw new Exception(
-                sprintf('Unknown distance type "%s"', $distanceType)
-            );
+            default:
+                throw new Exception(
+                    sprintf('Unknown distance type "%s"', $distanceType)
+                );
         }
 
         return self::START_X +
@@ -719,7 +711,7 @@ class Builder
     /**
      * Calculates the y from given row and distance type.
      *
-     * @param int    $row          The row.
+     * @param int $row The row.
      * @param string $distanceType The distance type.
      *
      * @return int
@@ -730,25 +722,25 @@ class Builder
         string $distanceType = self::DISTANCE_TYPE_NONE
     ): int {
         switch ($distanceType) {
-        case self::DISTANCE_TYPE_NONE:
-            $correction = 0;
-            break;
+            case self::DISTANCE_TYPE_NONE:
+                $correction = 0;
+                break;
 
-        case self::DISTANCE_TYPE_TOP:
-            $correction = self::STEP_RADIUS;
-            break;
+            case self::DISTANCE_TYPE_TOP:
+                $correction = self::STEP_RADIUS;
+                break;
 
-        case self::DISTANCE_TYPE_BOTTOM:
-            $correction = -self::STEP_RADIUS;
-            break;
+            case self::DISTANCE_TYPE_BOTTOM:
+                $correction = -self::STEP_RADIUS;
+                break;
 
-        default:
-            throw new Exception(
-                sprintf(
-                    'Unknown distance type "%s"',
-                    $distanceType
-                )
-            );
+            default:
+                throw new Exception(
+                    sprintf(
+                        'Unknown distance type "%s"',
+                        $distanceType
+                    )
+                );
         }
 
         return self::START_Y + $row * self::ROW_WIDTH + $correction;

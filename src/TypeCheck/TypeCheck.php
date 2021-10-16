@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category TypeCheck
- * @package  Ixnode\PHPBranchDiagramBuilder\TypeCheck
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\TypeCheck;
@@ -38,12 +31,12 @@ namespace Ixnode\PHPBranchDiagramBuilder\TypeCheck;
 /**
  * Class TypeCheck
  *
+ * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
  * @category TypeCheck
  * @package  Ixnode\PHPBranchDiagramBuilder\TypeCheck
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
  */
 class TypeCheck
 {

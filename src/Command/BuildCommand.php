@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category BuildCommand
- * @package  Ixnode\PHPBranchDiagramBuilder\Command
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder\Command;
@@ -46,22 +39,22 @@ use Ixnode\PHPBranchDiagramBuilder\Tools\Converter;
 /**
  * Class BuildCommand
  *
- * @category BuildCommand
- * @package  Ixnode\PHPBranchDiagramBuilder\Command
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Command
+ * @package  Ixnode\PHPBranchDiagramBuilder\Command
  */
 class BuildCommand extends BaseCommand
 {
-    const COMMAND = 'build';
+    public const COMMAND = 'build';
 
-    const ALIAS = 'b';
+    public const ALIAS = 'b';
 
-    const DESCRIPTION = 'Builds the branching diagram.';
+    public const DESCRIPTION = 'Builds the branching diagram.';
 
-    const FUNCTION_NAME_YAML_PARSE_FILE = 'yaml_parse_file';
+    public const FUNCTION_NAME_YAML_PARSE_FILE = 'yaml_parse_file';
 
     /**
      * GenerateKeysCommand constructor.

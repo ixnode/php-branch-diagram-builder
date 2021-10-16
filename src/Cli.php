@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * MIT License
@@ -22,15 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- *
- * PHP version 8
- *
- * @category Cli
- * @package  Ixnode\PHPBranchDiagramBuilder
- * @author   Björn Hempel <bjoern@hempel.li>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @version  GIT: 1.0.0
- * @link     https://www.hempel.li
  */
 
 namespace Ixnode\PHPBranchDiagramBuilder;
@@ -45,33 +38,35 @@ use Exception;
 /**
  * Class Cli
  *
- * @category Cli
- * @package  Ixnode\PHPBranchDiagramBuilder
  * @author   Björn Hempel <bjoern@hempel.li>
+ * @version  1.0 <2021-10-16>
  * @license  https://opensource.org/licenses/MIT MIT License
- * @version  Release: @package_version@
- * @link     https://www.hempel.li
+ * @link     https://github.com/ixnode/php-branch-diagram-builder
+ * @category Main
+ * @package  Ixnode\PHPBranchDiagramBuilder
  */
 class Cli
 {
+    public const FILE_NAME_VERSION = 'VERSION';
+
     /**
      * The argv.
      *
-     * @var string[] $argv 
+     * @var string[] $argv
      */
     protected array $argv = array();
 
     /**
      * The argv loaded.
      *
-     * @var bool $argvLoaded 
+     * @var bool $argvLoaded
      */
     protected bool $argvLoaded = false;
 
     /**
      * The interactor.
      *
-     * @var Interactor|null $interactor 
+     * @var Interactor|null $interactor
      */
     protected ?Interactor $interactor = null;
 
@@ -85,17 +80,14 @@ class Cli
     /**
      * Cli constructor.
      *
-     * @param ?string    $command    The command.
-     * @param Interactor $interactor The interactor.
-     * @param callable   $onExit     The on exit.
+     * @param ?string $command The command.
+     * @param ?Interactor $interactor The interactor.
+     * @param ?callable $onExit The on exit.
      *
      * @throws Exception
      */
-    public function __construct(
-        string $command = null,
-        Interactor $interactor = null,
-        callable $onExit = null
-    ) {
+    public function __construct(string $command = null, Interactor $interactor = null, callable $onExit = null)
+    {
         // @codeCoverageIgnoreStart
         $this->onExit = $onExit ?? function ($exitCode = 0) {
             exit($exitCode);
@@ -152,7 +144,8 @@ class Cli
 
         return array_values(
             array_filter(
-                $parsed, function ($value) {
+                $parsed,
+                function ($value) {
                     return ($value !== null && $value !== false && $value !== "");
                 }
             )
@@ -191,8 +184,18 @@ class Cli
      */
     public function handle(): void
     {
+        $filePathVersion = sprintf('%s/%s', dirname(__DIR__), self::FILE_NAME_VERSION);
+
+        /* Check file path */
+        if (!file_exists($filePathVersion)) {
+            throw new Exception(sprintf('The given file "%s" does not exists.', $filePathVersion));
+        }
+
+        /* Read version file */
+        $version = sprintf('v%s', file_get_contents($filePathVersion));
+
         /* Init App with name and version */
-        $app = new Application(Builder::NAME, Builder::VERSION, $this->onExit);
+        $app = new Application(Builder::NAME, $version, $this->onExit);
 
         if ($this->interactor !== null) {
             $app->io($this->interactor);
