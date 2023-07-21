@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eeadd566e420e62b9d1359d1bf7604d1",
+    "content-hash": "fd13cf35a98cb80ede2fda9fa83cec60",
     "packages": [
         {
             "name": "adhocore/cli",
-            "version": "0.9.1",
+            "version": "v1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adhocore/php-cli.git",
-                "reference": "e2e06d080c5fcefbe11a448cc4f87f7b144e8d35"
+                "reference": "25b5a93e5eebcdb70e20ee33313a011ea3a4f770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/adhocore/php-cli/zipball/e2e06d080c5fcefbe11a448cc4f87f7b144e8d35",
-                "reference": "e2e06d080c5fcefbe11a448cc4f87f7b144e8d35",
+                "url": "https://api.github.com/repos/adhocore/php-cli/zipball/25b5a93e5eebcdb70e20ee33313a011ea3a4f770",
+                "reference": "25b5a93e5eebcdb70e20ee33313a011ea3a4f770",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": ">=8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0"
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "autoload": {
@@ -44,7 +44,6 @@
             ],
             "description": "Command line interface library for PHP",
             "keywords": [
-                "PHP7",
                 "argument-parser",
                 "argv-parser",
                 "cli",
@@ -57,20 +56,25 @@
                 "console",
                 "console-app",
                 "php-cli",
+                "php8",
                 "stream-input",
                 "stream-output"
             ],
             "support": {
                 "issues": "https://github.com/adhocore/php-cli/issues",
-                "source": "https://github.com/adhocore/php-cli/tree/0.9.1"
+                "source": "https://github.com/adhocore/php-cli/tree/v1.6.1"
             },
             "funding": [
                 {
                     "url": "https://paypal.me/ji10",
                     "type": "custom"
+                },
+                {
+                    "url": "https://github.com/adhocore",
+                    "type": "github"
                 }
             ],
-            "time": "2022-02-18T05:09:37+00:00"
+            "time": "2023-06-26T09:55:29+00:00"
         }
     ],
     "packages-dev": [
