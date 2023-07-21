@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [1.2.1] - 2023-07-20
+
+* Composer update
+
 ### [1.2.0] - 2022-01-05
 
 * [#2](https://github.com/ixnode/php-vault/issues/2) - Add FUNDING.yml
