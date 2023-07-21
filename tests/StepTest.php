@@ -68,7 +68,6 @@ final class StepTest extends TestCase
      * @param string|null $targetExpected
      * @return void
      * @throws Exception
-     * @phpstan-template T of object
      */
     public function testStep(int $number, ?string $exception, string $type, ?string $source, ?string $target, string $targetExpected = null): void
     {

@@ -198,21 +198,21 @@ class Logger
 
         /* Print log message. */
         switch ($level) {
-        case self::LOG_LEVEL_OK: $this->writer->ok($message, $eol);
-            break;
-        case self::LOG_LEVEL_INFO: $this->writer->info($message, $eol);
-            break;
-        case self::LOG_LEVEL_WARN: $this->writer->warn($message, $eol);
-            break;
-        case self::LOG_LEVEL_ERROR: $this->writer->error($message, $eol);
-            break;
-        default:
-            throw new Exception(
-                $this->interpolate(
-                    'The given log level "{log-level}" is unknown.',
-                    array('log-level' => $level)
-                )
-            );
+            case self::LOG_LEVEL_OK: $this->writer->ok($message, $eol);
+                break;
+            case self::LOG_LEVEL_INFO: $this->writer->info($message, $eol);
+                break;
+            case self::LOG_LEVEL_WARN: $this->writer->warn($message, $eol);
+                break;
+            case self::LOG_LEVEL_ERROR: $this->writer->error($message, $eol);
+                break;
+            default:
+                throw new Exception(
+                    $this->interpolate(
+                        'The given log level "{log-level}" is unknown.',
+                        array('log-level' => $level)
+                    )
+                );
         }
     }
 

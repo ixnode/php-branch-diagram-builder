@@ -69,29 +69,29 @@ class Step
     {
         /* Get and convert source and target */
         switch ($type) {
-        case Builder::REPOSITORY_NAME_COMMIT:
-            $source = $this->buildName($source);
-            $target = $this->buildName($target ?? $source);
-            break;
+            case Builder::REPOSITORY_NAME_COMMIT:
+                $source = $this->buildName($source);
+                $target = $this->buildName($target ?? $source);
+                break;
 
-        case Builder::REPOSITORY_NAME_INIT:
-        case Builder::REPOSITORY_NAME_CHECKOUT:
-        case Builder::REPOSITORY_NAME_MERGE:
-            $source = $this->buildName($source);
-            $target = $this->buildName($target);
-            break;
+            case Builder::REPOSITORY_NAME_INIT:
+            case Builder::REPOSITORY_NAME_CHECKOUT:
+            case Builder::REPOSITORY_NAME_MERGE:
+                $source = $this->buildName($source);
+                $target = $this->buildName($target);
+                break;
 
-        default:
-            throw new StepUnknownTypeException();
+            default:
+                throw new StepUnknownTypeException();
         }
 
         /* Check source */
         switch (true) {
-        case $type === Builder::REPOSITORY_NAME_INIT && $source !== null:
-            throw new StepUnnecessarySourceException();
+            case $type === Builder::REPOSITORY_NAME_INIT && $source !== null:
+                throw new StepUnnecessarySourceException();
 
-        case $type !== Builder::REPOSITORY_NAME_INIT && $source === null:
-            throw new StepMissingSourceException();
+            case $type !== Builder::REPOSITORY_NAME_INIT && $source === null:
+                throw new StepMissingSourceException();
         }
 
         /* Check target */
@@ -101,11 +101,11 @@ class Step
 
         /* Check equal branches */
         switch (true) {
-        case $type !== Builder::REPOSITORY_NAME_COMMIT && $source === $target:
-            throw new StepEqualSourceAndTargetException();
+            case $type !== Builder::REPOSITORY_NAME_COMMIT && $source === $target:
+                throw new StepEqualSourceAndTargetException();
 
-        case $type === Builder::REPOSITORY_NAME_COMMIT && $source !== $target:
-            throw new StepNotEqualSourceAndTargetException();
+            case $type === Builder::REPOSITORY_NAME_COMMIT && $source !== $target:
+                throw new StepNotEqualSourceAndTargetException();
         }
 
         /* Add values */
